@@ -18,7 +18,7 @@
             overflow-x: hidden;
         }
 
-        /* 鶏ニティ：淡い三角形の幾何学和モダンパターン背景 */
+        /* 鶏ニティ：ランダムに散りばめられた幾何学三角形背景 */
         .bg_pattern {
             position: fixed;
             top: 0;
@@ -26,12 +26,35 @@
             width: 100vw;
             height: 100vh;
             pointer-events: none;
-            opacity: 0.28;
             z-index: -1;
+            overflow: hidden;
         }
-        .Triangle_lattice {
-            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='52' viewBox='0 0 60 52'%3E%3Cpath d='M30 2 L58 50 L2 50 Z' fill='none' stroke='rgba(180, 83, 9, 0.15)' stroke-width='1'/%3E%3Cpath d='M0 52 L28 4 L-28 4 Z' fill='none' stroke='rgba(77, 124, 15, 0.12)' stroke-width='1'/%3E%3Cpath d='M60 52 L88 4 L32 4 Z' fill='none' stroke='rgba(77, 124, 15, 0.12)' stroke-width='1'/%3E%3C/svg%3E");
-            background-size: 60px 52px;
+
+        .triangle-bg-element {
+            position: absolute;
+            fill: none;
+            stroke-width: 1.2;
+            will-change: transform, opacity;
+        }
+
+        /* 個々のランダムな三角形の配置と優しい浮遊アニメーション */
+        .tri-1 { top: 8%; left: 8%; width: 90px; height: 90px; stroke: rgba(180, 83, 9, 0.16); animation: floatSlow 22s ease-in-out infinite alternate; }
+        .tri-2 { top: 15%; right: 12%; width: 130px; height: 130px; stroke: rgba(77, 124, 15, 0.12); animation: floatReverse 28s ease-in-out infinite alternate; }
+        .tri-3 { top: 45%; left: -5%; width: 160px; height: 160px; stroke: rgba(212, 197, 171, 0.22); animation: floatSlow 32s ease-in-out infinite alternate; }
+        .tri-4 { top: 62%; right: 5%; width: 110px; height: 110px; stroke: rgba(180, 83, 9, 0.1); animation: floatReverse 24s ease-in-out infinite alternate; }
+        .tri-5 { bottom: 8%; left: 15%; width: 120px; height: 120px; stroke: rgba(77, 124, 15, 0.14); animation: floatSlow 26s ease-in-out infinite alternate; }
+        .tri-6 { bottom: 22%; right: 18%; width: 80px; height: 80px; stroke: rgba(212, 197, 171, 0.18); animation: floatSlow 19s ease-in-out infinite alternate; }
+        .tri-7 { top: 30%; right: 40%; width: 50px; height: 50px; stroke: rgba(180, 83, 9, 0.08); opacity: 0.7; }
+        .tri-8 { bottom: 40%; left: 35%; width: 70px; height: 70px; stroke: rgba(77, 124, 15, 0.09); opacity: 0.6; }
+
+        @keyframes floatSlow {
+            0% { transform: translateY(0) rotate(0deg) scale(1); }
+            100% { transform: translateY(-15px) rotate(10deg) scale(1.03); }
+        }
+
+        @keyframes floatReverse {
+            0% { transform: translateY(0) rotate(0deg) scale(1); }
+            100% { transform: translateY(12px) rotate(-8deg) scale(0.97); }
         }
 
         #splash-screen {
@@ -59,8 +82,8 @@
         /* スプラッシュ背景で静かに回転するトリニティ大三角形 */
         .splash-trinity-bg {
             position: absolute;
-            width: 320px;
-            height: 320px;
+            width: clamp(260px, 75vw, 320px);
+            height: clamp(260px, 75vw, 320px);
             opacity: 0;
             transform: scale(0.8) rotate(0deg);
             animation: trinityBgFadeIn 2.5s cubic-bezier(0.25, 1, 0.5, 1) 4.0s forwards, trinityRotate 25s linear 4.0s infinite;
@@ -80,46 +103,51 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 30px;
-            width: 100%;
+            gap: clamp(15px, 5vw, 30px);
+            width: 90%;
             max-width: 480px;
             box-sizing: border-box;
-            padding: 0 20px;
+            padding: 0 10px;
             opacity: 1;
             z-index: 2;
             animation: vsFadeOut 0.5s ease 4.0s forwards;
+            flex-wrap: nowrap;
         }
 
+        /* スマホ実機で見切れないよう clamp でフォントサイズを流動的に自動最適化 */
         .vs-karaage {
-            font-size: 1.6rem;
+            font-size: clamp(1.15rem, 5.2vw, 1.6rem);
             font-weight: 900;
             color: #b45309;
             opacity: 0;
-            transform: translateX(-40px);
+            transform: translateX(-30px);
             animation: slideInLeft 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.1) 0.8s forwards;
             text-shadow: 0 2px 8px rgba(180, 83, 9, 0.15);
             font-family: "Hiragino Mincho ProN", "Yu Mincho", serif;
+            white-space: nowrap;
         }
 
         .vs-text {
-            font-size: 2rem;
+            font-size: clamp(1.4rem, 6vw, 2rem);
             font-style: italic;
             font-weight: 900;
             color: #78716c;
             opacity: 0;
             transform: scale(0.5);
             animation: popIn 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) 1.4s forwards;
+            white-space: nowrap;
         }
 
         .vs-toriten {
-            font-size: 1.6rem;
+            font-size: clamp(1.15rem, 5.2vw, 1.6rem);
             font-weight: 900;
             color: #4d7c0f;
             opacity: 0;
-            transform: translateX(40px);
+            transform: translateX(30px);
             animation: slideInRight 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.1) 0.8s forwards;
             text-shadow: 0 2px 8px rgba(77, 124, 15, 0.15);
             font-family: "Hiragino Mincho ProN", "Yu Mincho", serif;
+            white-space: nowrap;
         }
 
         @keyframes slideInLeft {
@@ -140,7 +168,7 @@
 
         .trinity-message {
             position: absolute;
-            font-size: 1.1rem;
+            font-size: clamp(0.92rem, 4vw, 1.1rem);
             font-weight: 800;
             color: #1e293b;
             text-align: center;
@@ -148,14 +176,21 @@
             transform: scale(0.95);
             z-index: 2;
             animation: messageSequence 3.8s cubic-bezier(0.25, 1, 0.5, 1) 4.5s forwards;
-            line-height: 2;
+            line-height: 2.1;
             letter-spacing: 0.15em;
-            width: 90%;
+            width: 86%;
             max-width: 420px;
             font-family: "Hiragino Mincho ProN", "Yu Mincho", serif;
             border-left: 2px solid #b45309;
             border-right: 2px solid #4d7c0f;
-            padding: 0 15px;
+            padding: 0 10px;
+            box-sizing: border-box;
+        }
+
+        /* 重要な日本語フレーズが途中で崩れて改行されるのを防ぐ display指定 */
+        .phrase-block {
+            display: inline-block;
+            white-space: nowrap;
         }
 
         @keyframes messageSequence {
@@ -165,7 +200,7 @@
             100% { opacity: 0; transform: scale(0.95); }
         }
 
-        /* スクロール連動フェードイン用の基本設定（復活） */
+        /* スクロール連動フェードイン用の基本設定 */
         .scroll-reveal {
             opacity: 0;
             transform: translateY(25px);
@@ -275,7 +310,7 @@
             color: #828fa3;
             margin: 35px 0 16px 0;
             text-align: center;
-            letter-spacing: 0.25em;
+            letter-spacing: 0.2em;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -761,7 +796,34 @@
 </head>
 <body>
 
-    <div class="bg_pattern Triangle_lattice"></div>
+    <!-- 鶏ニティ：ランダム浮かぶ三角形群背景 -->
+    <div class="bg_pattern">
+        <!-- 個別に角度やスケール・ストローク色を変えたランダムなSVG三角形 -->
+        <svg class="triangle-bg-element tri-1" viewBox="0 0 100 100">
+            <polygon points="50,15 90,85 10,85" />
+        </svg>
+        <svg class="triangle-bg-element tri-2" viewBox="0 0 100 100">
+            <polygon points="50,15 90,85 10,85" />
+        </svg>
+        <svg class="triangle-bg-element tri-3" viewBox="0 0 100 100">
+            <polygon points="50,15 90,85 10,85" />
+        </svg>
+        <svg class="triangle-bg-element tri-4" viewBox="0 0 100 100">
+            <polygon points="50,15 90,85 10,85" />
+        </svg>
+        <svg class="triangle-bg-element tri-5" viewBox="0 0 100 100">
+            <polygon points="50,15 90,85 10,85" />
+        </svg>
+        <svg class="triangle-bg-element tri-6" viewBox="0 0 100 100">
+            <polygon points="50,15 90,85 10,85" />
+        </svg>
+        <svg class="triangle-bg-element tri-7" viewBox="0 0 100 100">
+            <polygon points="50,15 90,85 10,85" />
+        </svg>
+        <svg class="triangle-bg-element tri-8" viewBox="0 0 100 100">
+            <polygon points="50,15 90,85 10,85" />
+        </svg>
+    </div>
 
     <div id="splash-screen">
         <svg class="splash-trinity-bg" viewBox="0 0 100 100">
@@ -781,9 +843,9 @@
             <span class="vs-toriten">とり天派</span>
         </div>
         <div class="trinity-message">
-            対立ではなく、共存。<br>
-            大分の食と風土が織りなす、<br>
-            三位一体『鶏ニティ』。
+            <span class="phrase-block">対立ではなく、共存。</span><br>
+            <span class="phrase-block">大分の食と風土が織りなす、</span><br>
+            <span class="phrase-block">三位一体『鶏ニティ』。</span>
         </div>
     </div>
 
@@ -905,7 +967,7 @@
     </footer>
 
     <script>
-        // スプラッシュ画面の制御（ロゴ削除に伴い8.5秒にスマートに短縮）
+        // スプラッシュ画面の制御（メッセージが消えたタイミングでスムーズに本編へ遷移）
         window.addEventListener('load', () => {
             const splash = document.getElementById('splash-screen');
             setTimeout(() => {
@@ -917,7 +979,7 @@
             }, 8500);
         });
 
-        // スクロール連動フェードインアニメーション（復活）
+        // スクロール連動フェードインアニメーション
         function initScrollReveal() {
             const revealElements = document.querySelectorAll('.scroll-reveal');
             
