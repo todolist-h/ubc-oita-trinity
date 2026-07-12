@@ -1,0 +1,939 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>大分県立大分上野丘高等学校 放送部 - 全国高校総合文化祭作品公開ページ</title>
+    <link rel="icon" href="放送部アイコン.png" type="image/png">
+    <style>
+        body {
+            font-family: "Georgia", "Times New Roman", "Hiragino Mincho ProN", "Yu Mincho", "MS Mincho", serif;
+            background: linear-gradient(135deg, #fdf6e2 0%, #f5eeda 50%, #e8dfc7 100%);
+            background-attachment: fixed;
+            color: #334155;
+            margin: 0;
+            padding: 0;
+            line-height: 1.7;
+            letter-spacing: 0.05em;
+        }
+
+        .bg_pattern {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            pointer-events: none;
+            opacity: 0.35;
+            z-index: -1;
+        }
+        .Polka_v2 {
+            background-image: radial-gradient(rgba(180, 83, 9, 0.2) 2px, transparent 2px), 
+                              radial-gradient(rgba(77, 124, 15, 0.2) 2px, transparent 2px);
+            background-size: 30px 30px;
+            background-position: 0 0, 15px 15px;
+        }
+
+        #splash-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background: linear-gradient(135deg, #fdf6e2 0%, #f5eeda 50%, #e8dfc7 100%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            transition: opacity 1.3s cubic-bezier(0.25, 1, 0.5, 1), visibility 1.3s ease;
+            opacity: 1;
+            visibility: visible;
+        }
+
+        #splash-screen.loaded {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .vs-container {
+            position: absolute;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 30px;
+            width: 100%;
+            max-width: 480px;
+            box-sizing: border-box;
+            padding: 0 20px;
+            opacity: 1;
+            animation: vsFadeOut 0.5s ease 4.0s forwards;
+        }
+
+        .vs-karaage {
+            font-size: 1.6rem;
+            font-weight: 900;
+            color: #b45309;
+            opacity: 0;
+            transform: translateX(-40px);
+            animation: slideInLeft 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.1) 0.8s forwards;
+            text-shadow: 0 2px 8px rgba(180, 83, 9, 0.15);
+            font-family: "Hiragino Mincho ProN", "Yu Mincho", serif;
+        }
+
+        .vs-text {
+            font-size: 2rem;
+            font-style: italic;
+            font-weight: 900;
+            color: #78716c;
+            opacity: 0;
+            transform: scale(0.5);
+            animation: popIn 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) 1.4s forwards;
+        }
+
+        .vs-toriten {
+            font-size: 1.6rem;
+            font-weight: 900;
+            color: #4d7c0f;
+            opacity: 0;
+            transform: translateX(40px);
+            animation: slideInRight 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.1) 0.8s forwards;
+            text-shadow: 0 2px 8px rgba(77, 124, 15, 0.15);
+            font-family: "Hiragino Mincho ProN", "Yu Mincho", serif;
+        }
+
+        @keyframes slideInLeft {
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        @keyframes slideInRight {
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        @keyframes popIn {
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        @keyframes vsFadeOut {
+            to { opacity: 0; transform: translateY(-15px); }
+        }
+
+        .trinity-message {
+            position: absolute;
+            font-size: 1.1rem;
+            font-weight: 800;
+            color: #1e293b;
+            text-align: center;
+            opacity: 0;
+            transform: scale(0.95);
+            animation: messageSequence 3.8s cubic-bezier(0.25, 1, 0.5, 1) 4.5s forwards;
+            line-height: 2;
+            letter-spacing: 0.15em;
+            width: 90%;
+            max-width: 420px;
+            font-family: "Hiragino Mincho ProN", "Yu Mincho", serif;
+            border-left: 2px solid #b45309;
+            border-right: 2px solid #4d7c0f;
+            padding: 0 15px;
+        }
+
+        @keyframes messageSequence {
+            0% { opacity: 0; transform: scale(0.95); }
+            18.42% { opacity: 1; transform: scale(1); }
+            81.58% { opacity: 1; transform: scale(1); }
+            100% { opacity: 0; transform: scale(0.95); }
+        }
+
+        .splash-logo-2 {
+            position: absolute;
+            width: 105px;
+            height: 105px;
+            border-radius: 50%;
+            border: 4px solid #ffffff;
+            box-shadow: 0 10px 30px rgba(59, 130, 246, 0.22);
+            object-fit: cover;
+            opacity: 0;
+            transform: translateY(-40px);
+            animation: splashLogo2FadeIn 1.0s cubic-bezier(0.16, 1, 0.3, 1) 8.3s forwards;
+        }
+
+        @keyframes splashLogo2FadeIn {
+            0% {
+                opacity: 0;
+                transform: translateY(-40px) scale(0.92);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(-40px) scale(1);
+            }
+        }
+
+        .splash-title {
+            position: absolute;
+            transform: translateY(60px);
+            font-size: 0.65rem;
+            font-weight: 800;
+            color: #4f46e5;
+            letter-spacing: 0.22em;
+            opacity: 0;
+            text-align: center;
+            padding: 0 15px;
+            text-transform: uppercase;
+            animation: splashTitleFadeIn 1.0s cubic-bezier(0.16, 1, 0.3, 1) 8.3s forwards;
+        }
+
+        @keyframes splashTitleFadeIn {
+            0% {
+                opacity: 0;
+                transform: translateY(70px);
+            }
+            100% {
+                opacity: 0.8;
+                transform: translateY(60px);
+            }
+        }
+
+        header {
+            text-align: center;
+            padding: 40px 20px 12px 20px;
+        }
+
+        .profile-avatar {
+            width: 95px;
+            height: 95px;
+            border-radius: 50%;
+            margin: 0 auto 16px auto;
+            display: block;
+            box-shadow: 0 8px 20px rgba(180, 83, 9, 0.15);
+            object-fit: cover;
+            border: 3px solid #ffffff;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 1.35rem;
+            font-weight: 700;
+            color: #1e293b;
+            line-height: 1.4;
+            font-family: "Hiragino Mincho ProN", "Yu Mincho", serif;
+        }
+
+        header .school-tag {
+            display: inline-block;
+            background-color: rgba(255, 255, 255, 0.85);
+            border: 1px solid rgba(217, 119, 6, 0.3);
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 0.72rem;
+            font-weight: 700;
+            color: #b45309;
+            margin-top: 10px;
+            letter-spacing: 0.05em;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+        }
+
+        header p {
+            margin: 12px 0 0 0;
+            font-size: 0.85rem;
+            color: #64748b;
+        }
+
+        header p .notice-soft {
+            display: block;
+            font-size: 0.72rem;
+            color: #828fa3;
+            margin-top: 6px;
+            line-height: 1.4;
+        }
+
+        .container {
+            max-width: 500px;
+            margin: 0 auto;
+            padding: 10px 16px 80px 16px;
+            box-sizing: border-box;
+            width: 100%;
+        }
+
+        @media (min-width: 768px) {
+            .container {
+                max-width: 600px;
+                padding: 20px 24px 100px 24px;
+            }
+
+            .btn-insta-banner {
+                display: flex !important;
+                width: 100% !important;
+                max-width: 480px !important;
+                margin-left: auto !important;
+                margin-right: auto !important;
+            }
+
+            .message-card, .container > .program-card {
+                width: 100%;
+                max-width: 480px;
+                margin-left: auto;
+                margin-right: auto;
+            }
+        }
+
+        .section-title {
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: #828fa3;
+            margin: 25px 0 12px 0;
+            text-align: center;
+            letter-spacing: 0.2em;
+        }
+
+        .program-card {
+            background-color: #ffffff;
+            border: 2px solid #e2d8c3;
+            background-image: linear-gradient(rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0.95));
+            border-radius: 16px;
+            padding: 12px;
+            margin: 14px 0;
+            box-shadow: 0 6px 18px rgba(139, 92, 26, 0.04);
+            transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .program-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 24px rgba(180, 83, 9, 0.06);
+            border-color: #d4c5ab;
+        }
+
+        .video-player-container {
+            width: 100%;
+            aspect-ratio: 16 / 9;
+            border-radius: 12px;
+            overflow: hidden;
+            background-color: #000000;
+            display: none;
+            box-shadow: 0 4px 12px rgba(15, 23, 42, 0.1);
+            max-height: 282px;
+            margin-bottom: 0;
+            animation: slideDownPlayer 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.1) forwards;
+        }
+        @keyframes slideDownPlayer {
+            from {
+                opacity: 0;
+                transform: translateY(-15px) scale(0.93);
+                max-height: 0;
+                margin-bottom: 0;
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+                max-height: 282px;
+                margin-bottom: 8px;
+            }
+        }
+
+        .video-player-container.slide-up {
+            animation: slideUpPlayer 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.15) forwards;
+        }
+        @keyframes slideUpPlayer {
+            from {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+                max-height: 282px;
+                margin-bottom: 8px;
+            }
+            to {
+                opacity: 0;
+                transform: translateY(-15px) scale(0.93);
+                max-height: 0;
+                margin-bottom: 0;
+            }
+        }
+
+        .program-main-link {
+            text-decoration: none;
+            color: inherit;
+            display: flex;
+            align-items: center;
+            min-width: 0;
+            width: 100%;
+            cursor: pointer;
+        }
+
+        .program-main {
+            display: flex;
+            align-items: center;
+            min-width: 0;
+            width: 100%;
+        }
+
+        .thumbnail-wrapper {
+            width: 100px;
+            height: 56.25px;
+            border-radius: 8px;
+            overflow: hidden;
+            flex-shrink: 0;
+            margin-right: 14px;
+            background-color: #e2e8f0;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+            border: 1px solid #e2d8c3;
+        }
+
+        .thumbnail-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .program-main-link:hover .thumbnail-wrapper img {
+            transform: scale(1.05);
+        }
+
+        .btn-text {
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+            min-width: 0;
+        }
+
+        .category-row {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 4px;
+            margin-bottom: 4px;
+        }
+
+        .category-icon {
+            width: 12px;
+            height: 12px;
+            color: #b45309;
+            flex-shrink: 0;
+        }
+
+        .btn-text .category {
+            font-size: 0.65rem;
+            color: #78716c;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+        }
+
+        .award-tag-mini {
+            display: inline-flex;
+            align-items: center;
+            gap: 3px;
+            font-size: 0.58rem;
+            font-weight: 800;
+            padding: 1px 6px;
+            border-radius: 8px;
+            line-height: 1.2;
+            letter-spacing: 0.01em;
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+
+        .award-gold {
+            background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+            color: #b45309;
+            border: 1px solid rgba(245, 158, 11, 0.2);
+        }
+
+        .award-medal-svg {
+            width: 10px !important;
+            height: 10px !important;
+            fill: none;
+            stroke: currentColor;
+            stroke-width: 2.5;
+            flex-shrink: 0;
+        }
+
+        .btn-text .work-title {
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: #1e293b;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            margin-top: 2px;
+            font-family: "Hiragino Mincho ProN", "Yu Mincho", serif;
+        }
+
+        .program-actions {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            margin-top: 8px;
+            border-top: 1px solid #f1f5f9;
+            padding-top: 8px;
+        }
+
+        .action-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 4px;
+            padding: 8px 10px;
+            height: 36px;
+            border-radius: 12px;
+            font-size: 0.72rem;
+            font-weight: 700;
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            outline: none;
+            user-select: none;
+            box-sizing: border-box;
+            width: 100%;
+        }
+
+        .btn-watch {
+            background: linear-gradient(135deg, #fbbf24 0%, #d97706 100%);
+            color: #ffffff;
+            border: none;
+            box-shadow: 0 4px 10px rgba(217, 119, 6, 0.15);
+        }
+
+        .btn-watch:hover {
+            background: linear-gradient(135deg, #d97706 0%, #b45309 100%);
+            box-shadow: 0 6px 14px rgba(217, 119, 6, 0.25);
+        }
+
+        .btn-watch.active-playing {
+            background: linear-gradient(135deg, #a3e635 0%, #4d7c0f 100%);
+            box-shadow: 0 4px 10px rgba(77, 124, 15, 0.15);
+        }
+
+        .action-btn svg {
+            width: 14px !important;
+            height: 14px !important;
+            fill: currentColor;
+            flex-shrink: 0;
+        }
+
+        .work-details {
+            width: 100%;
+            background-color: #fafaf9;
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid #e7e5e4;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            box-sizing: border-box;
+        }
+
+        .work-details summary {
+            padding: 8px 10px;
+            font-size: 0.72rem;
+            font-weight: 700;
+            color: #78716c;
+            cursor: pointer;
+            outline: none;
+            user-select: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 4px;
+            list-style: none;
+            box-sizing: border-box;
+            height: 36px;
+        }
+
+        .work-details summary::-webkit-details-marker {
+            display: none;
+        }
+
+        .work-details summary::before {
+            content: "▼";
+            font-size: 0.55rem;
+            transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            display: inline-block;
+        }
+
+        .work-details[open] summary::before {
+            transform: rotate(180deg);
+        }
+
+        .work-details[open] {
+            box-shadow: 0 4px 12px rgba(120, 113, 108, 0.05);
+            background-color: #ffffff;
+        }
+
+        .details-content {
+            padding: 12px 14px;
+            border-top: 1px dashed #e7e5e4;
+            box-sizing: border-box;
+            max-height: 140px;
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .details-content::-webkit-scrollbar {
+            width: 5px;
+        }
+        .details-content::-webkit-scrollbar-track {
+            background: #fafaf9;
+            border-radius: 10px;
+        }
+        .details-content::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 10px;
+        }
+        .details-content::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+
+        .details-section-title {
+            font-size: 0.65rem;
+            color: #b45309;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            margin-bottom: 4px;
+            margin-top: 8px;
+        }
+
+        .details-section-title:first-of-type {
+            margin-top: 0;
+        }
+
+        .details-content-text {
+            font-size: 0.75rem;
+            color: #475569;
+            line-height: 1.6;
+            white-space: pre-wrap;
+        }
+
+        .btn-insta-banner {
+            display: flex;
+            align-items: center;
+            width: 100%;
+            box-sizing: border-box;
+            padding: 16px 20px;
+            margin: 16px 0;
+            background: linear-gradient(45deg, #f9ce34 0%, #ee2a7b 50%, #6228d7 100%);
+            border: none;
+            border-radius: 30px;
+            text-decoration: none;
+            color: #ffffff;
+            box-shadow: 0 6px 20px rgba(238, 42, 123, 0.2);
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .btn-insta-banner .insta-icon-container {
+            background-color: rgba(255, 255, 255, 0.2);
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 14px;
+            flex-shrink: 0;
+        }
+
+        .btn-insta-banner .insta-icon-container svg {
+            width: 20px;
+            height: 20px;
+            color: #ffffff;
+        }
+
+        .btn-insta-banner .insta-text {
+            display: flex;
+            flex-direction: column;
+            text-align: left;
+        }
+
+        .btn-insta-banner .insta-text .insta-label {
+            font-size: 0.65rem;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+            opacity: 0.9;
+        }
+
+        .btn-insta-banner .insta-text .insta-id {
+            font-size: 0.9rem;
+            font-weight: 800;
+            letter-spacing: 0.02em;
+        }
+
+        .btn-insta-banner::after {
+            content: "→";
+            font-family: monospace;
+            font-size: 1.1rem;
+            margin-left: auto;
+            color: #ffffff;
+            font-weight: bold;
+            transition: transform 0.25s ease;
+        }
+
+        .btn-insta-banner:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(238, 42, 123, 0.35);
+            opacity: 0.95;
+        }
+
+        .btn-insta-banner:hover::after {
+            transform: translateX(4px);
+        }
+
+        .message-card {
+            background-color: rgba(255, 255, 255, 0.6);
+            border: 2px dashed #d4c5ab;
+            border-radius: 16px;
+            padding: 20px;
+            text-align: center;
+            margin-top: 30px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.01);
+        }
+
+        .message-card p {
+            margin: 0;
+            font-size: 0.8rem;
+            color: #475569;
+            line-height: 1.8;
+            font-family: "Hiragino Mincho ProN", "Yu Mincho", serif;
+        }
+
+        .floating-insta {
+            position: fixed;
+            bottom: 25px;
+            right: 25px;
+            width: 54px;
+            height: 54px;
+            background: linear-gradient(45deg, #f9ce34 0%, #ee2a7b 50%, #6228d7 100%);
+            border: 3px solid #ffffff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 6px 16px rgba(238, 42, 123, 0.3);
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            z-index: 1000;
+            color: #ffffff;
+        }
+
+        .floating-insta svg {
+            width: 24px;
+            height: 24px;
+        }
+
+        .floating-insta:hover {
+            transform: translateY(-4px) scale(1.08);
+            box-shadow: 0 10px 20px rgba(238, 42, 123, 0.45);
+        }
+
+        footer {
+            text-align: center;
+            padding: 30px 20px 40px 20px;
+            font-size: 0.7rem;
+            color: #878684;
+            letter-spacing: 0.05em;
+            line-height: 1.6;
+        }
+
+        footer .copyright-notice {
+            margin: 0 0 8px 0;
+            color: #94a3b8;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="bg_pattern Polka_v2"></div>
+
+    <div id="splash-screen">
+        <div class="vs-container">
+            <span class="vs-karaage">からあげ派</span>
+            <span class="vs-text">VS</span>
+            <span class="vs-toriten">とり天派</span>
+        </div>
+        <div class="trinity-message">
+            対立ではなく、共存。<br>
+            大分の食と風土が織りなす、<br>
+            三位一体『鶏ニティ』。
+        </div>
+        <img class="splash-logo-2" src="放送部アイコン.png" alt="放送部アイコン">
+        <div class="splash-title">Oita Uenogaoka Broadcast Club</div>
+    </div>
+
+    <header>
+        <img class="profile-avatar" src="放送部アイコン.png" alt="大分県立大分上野丘高等学校 放送部 公式アイコン">
+        <h1>大分県立大分上野丘高等学校 放送部</h1>
+        <div class="school-tag">第50回全国高校総合文化祭 出品作品</div>
+        <p>
+            あきた総文2026に出品した作品です。ぜひご視聴ください！
+            <span class="notice-soft">※本サイトは大会参加者の皆様との作品交換用です。部外へのURL共有や, 画面収録などの保存はご遠慮ください。</span>
+        </p>
+    </header>
+
+    <div class="container">
+
+        <div class="section-title">PROGRAMS</div>
+
+        <div class="program-card">
+            <div class="video-player-container" id="player-1"></div>
+
+            <a href="javascript:void(0)" onclick="triggerPlayFromCard(this, 'VjICagT4xw8')" class="program-main-link" title="作品を視聴する">
+                <div class="program-main">
+                    <div class="thumbnail-wrapper">
+                        <img src="https://img.youtube.com/vi/VjICagT4xw8/mqdefault.jpg" alt="ビデオメッセージ サムネイル" onerror="this.src='https://images.unsplash.com/photo-1484755560695-a4c740285fa6?w=300&auto=format&fit=crop&q=60'">
+                    </div>
+                    <div class="btn-text">
+                        <span class="category-row">
+                            <svg class="category-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="15" rx="2" ry="2"></rect><polyline points="17 2 12 7 7 2"></polyline></svg>
+                            <span class="category">ビデオメッセージ部門</span>
+                            <span class="award-tag-mini award-gold">
+                                <svg class="award-medal-svg" viewBox="0 0 24 24"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11"/></svg>
+                                全国大会出品
+                            </span>
+                        </span>
+                        <span class="work-title">『オオイタ・鶏ニティ』</span>
+                    </div>
+                </div>
+            </a>
+            <div class="program-actions">
+                <button type="button" class="action-btn btn-watch" onclick="togglePlay(this, 'VjICagT4xw8')">
+                    <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg> 作品を視聴する
+                </button>
+                
+                <details class="work-details">
+                    <summary>制作意図を見る</summary>
+                    <div class="details-content">
+                        <div class="details-section-title">制作意図</div>
+                        <div class="details-content-text">大分が誇る二大鶏料理、「からあげ」と「とり天」。
+単なる人気争いの対立構造ではなく、大分の食と風土が織りなす共存の姿がそこにはあった。
+身近な食に秘められた魅力を全国へ発信すべく、この番組を制作した。</div>
+                    </div>
+                </details>
+            </div>
+        </div>
+
+        <div class="section-title">OFFICIAL SNS</div>
+
+        <a href="https://www.instagram.com/oita_ueno.broadcast?igsh=dWhhaWJxNGsyanVu&utm_source=qr" target="_blank" class="btn-insta-banner">
+            <div class="insta-icon-container">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                    <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                    <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+                </svg>
+            </div>
+            <div class="insta-text">
+                <span class="insta-label">大分上野丘高校放送部 公式Instagram</span>
+                <span class="insta-id">@oita_ueno.broadcast</span>
+            </div>
+        </a>
+
+        <div class="section-title">OTHER CONTENTS</div>
+
+        <div class="program-card">
+            <div class="video-player-container" id="player-pv"></div>
+
+            <a href="javascript:void(0)" onclick="triggerPlayFromCard(this, 'rwcsDeVlROE')" class="program-main-link" title="作品を視聴する">
+                <div class="program-main">
+                    <div class="thumbnail-wrapper">
+                        <img src="https://img.youtube.com/vi/rwcsDeVlROE/mqdefault.jpg" alt="学校紹介PV サムネイル" onerror="this.src='https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=300&auto=format&fit=crop&q=60'">
+                    </div>
+                    <div class="btn-text">
+                        <span class="category-row">
+                            <svg class="category-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path><circle cx="12" cy="13" r="4"></circle></svg>
+                            <span class="category">学校紹介映像</span>
+                        </span>
+                        <span class="work-title">『大分上野丘高校 学校紹介PV』</span>
+                    </div>
+                </div>
+            </a>
+            <div class="program-actions">
+                <button type="button" class="action-btn btn-watch" onclick="togglePlay(this, 'rwcsDeVlROE')" style="flex: 100%;">
+                    <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg> 作品を視聴する
+                </button>
+            </div>
+        </div>
+
+        <div class="message-card">
+            <p>
+                全国の放送部の皆さん、ご視聴ありがとうございます！<br>
+                感想や日頃の活動の様子など、ぜひお聞かせください。<br>
+                これからもお互いに頑張っていきましょう！✨
+            </p>
+        </div>
+
+    </div>
+
+    <a href="https://www.instagram.com/oita_ueno.broadcast?igsh=dWhhaWJxNGsyanVu&utm_source=qr" target="_blank" class="floating-insta" aria-label="Official Instagram">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+            <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+            <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+        </svg>
+    </a>
+
+    <footer>
+        <p class="copyright-notice">当サイトの作品リンク等の部外への共有、画面収録等の保存、無断転載は固くお断りいたします。</p>
+        <p>&copy; Oita Uenogaoka High School Broadcasting Club.</p>
+    </footer>
+
+    <script>
+        window.addEventListener('load', () => {
+            const splash = document.getElementById('splash-screen');
+            setTimeout(() => {
+                splash.classList.add('loaded');
+                setTimeout(() => {
+                    splash.style.display = 'none';
+                }, 1300);
+            }, 11000);
+        });
+
+        function triggerPlayFromCard(linkElement, videoId) {
+            const card = linkElement.closest('.program-card');
+            const btn = card.querySelector('.btn-watch');
+            if (btn) {
+                togglePlay(btn, videoId);
+            }
+        }
+
+        function togglePlay(btn, videoId) {
+            const card = btn.closest('.program-card');
+            const container = card.querySelector('.video-player-container');
+            
+            document.querySelectorAll('.video-player-container').forEach(c => {
+                if (c !== container && c.style.display === 'block') {
+                    closePlayerWithAnimation(c);
+                }
+            });
+
+            if (container.style.display === 'none' || container.innerHTML === '') {
+                container.style.display = 'block';
+                container.classList.remove('slide-up');
+                
+                const currentOrigin = window.location.origin;
+                container.innerHTML = `<iframe width="100%" height="100%" src="https://www.youtube-nocookie.com/embed/${videoId}?autoplay=1&rel=0&enablejsapi=1&origin=${encodeURIComponent(currentOrigin)}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
+                
+                btn.innerHTML = `<svg viewBox="0 0 24 24"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg> プレイヤーを閉じる`;
+                btn.classList.add('active-playing');
+                
+                setTimeout(() => {
+                    container.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                }, 150);
+            } else {
+                closePlayerWithAnimation(container);
+            }
+        }
+
+        function closePlayerWithAnimation(container) {
+            const card = container.closest('.program-card');
+            const btn = card.querySelector('.btn-watch');
+
+            container.classList.add('slide-up');
+
+            if (btn) {
+                btn.innerHTML = `<svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg> 作品を視聴する`;
+                btn.classList.remove('active-playing');
+            }
+
+            setTimeout(() => {
+                container.style.display = 'none';
+                container.innerHTML = '';
+                container.classList.remove('slide-up');
+            }, 300);
+        }
+    </script>
+</body>
+</html>
