@@ -13,10 +13,12 @@
             color: #334155;
             margin: 0;
             padding: 0;
-            line-height: 1.7;
-            letter-spacing: 0.05em;
+            line-height: 1.8;
+            letter-spacing: 0.08em;
+            overflow-x: hidden;
         }
 
+        /* 鶏ニティ：淡い三角形の幾何学和モダンパターン背景 */
         .bg_pattern {
             position: fixed;
             top: 0;
@@ -24,14 +26,12 @@
             width: 100vw;
             height: 100vh;
             pointer-events: none;
-            opacity: 0.35;
+            opacity: 0.28;
             z-index: -1;
         }
-        .Polka_v2 {
-            background-image: radial-gradient(rgba(180, 83, 9, 0.2) 2px, transparent 2px), 
-                              radial-gradient(rgba(77, 124, 15, 0.2) 2px, transparent 2px);
-            background-size: 30px 30px;
-            background-position: 0 0, 15px 15px;
+        .Triangle_lattice {
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='52' viewBox='0 0 60 52'%3E%3Cpath d='M30 2 L58 50 L2 50 Z' fill='none' stroke='rgba(180, 83, 9, 0.15)' stroke-width='1'/%3E%3Cpath d='M0 52 L28 4 L-28 4 Z' fill='none' stroke='rgba(77, 124, 15, 0.12)' stroke-width='1'/%3E%3Cpath d='M60 52 L88 4 L32 4 Z' fill='none' stroke='rgba(77, 124, 15, 0.12)' stroke-width='1'/%3E%3C/svg%3E");
+            background-size: 60px 52px;
         }
 
         #splash-screen {
@@ -46,7 +46,7 @@
             align-items: center;
             justify-content: center;
             z-index: 9999;
-            transition: opacity 1.3s cubic-bezier(0.25, 1, 0.5, 1), visibility 1.3s ease;
+            transition: opacity 1.2s cubic-bezier(0.25, 1, 0.5, 1), visibility 1.2s ease;
             opacity: 1;
             visibility: visible;
         }
@@ -54,6 +54,25 @@
         #splash-screen.loaded {
             opacity: 0;
             visibility: hidden;
+        }
+
+        /* スプラッシュ背景で静かに回転するトリニティ大三角形 */
+        .splash-trinity-bg {
+            position: absolute;
+            width: 320px;
+            height: 320px;
+            opacity: 0;
+            transform: scale(0.8) rotate(0deg);
+            animation: trinityBgFadeIn 2.5s cubic-bezier(0.25, 1, 0.5, 1) 4.0s forwards, trinityRotate 25s linear 4.0s infinite;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        @keyframes trinityBgFadeIn {
+            to { opacity: 0.12; transform: scale(1) rotate(0deg); }
+        }
+        @keyframes trinityRotate {
+            100% { transform: rotate(360deg); }
         }
 
         .vs-container {
@@ -67,6 +86,7 @@
             box-sizing: border-box;
             padding: 0 20px;
             opacity: 1;
+            z-index: 2;
             animation: vsFadeOut 0.5s ease 4.0s forwards;
         }
 
@@ -126,6 +146,7 @@
             text-align: center;
             opacity: 0;
             transform: scale(0.95);
+            z-index: 2;
             animation: messageSequence 3.8s cubic-bezier(0.25, 1, 0.5, 1) 4.5s forwards;
             line-height: 2;
             letter-spacing: 0.15em;
@@ -144,58 +165,29 @@
             100% { opacity: 0; transform: scale(0.95); }
         }
 
-        .splash-logo-2 {
-            position: absolute;
-            width: 105px;
-            height: 105px;
-            border-radius: 50%;
-            border: 4px solid #ffffff;
-            box-shadow: 0 10px 30px rgba(59, 130, 246, 0.22);
-            object-fit: cover;
+        /* スクロール連動フェードイン用の基本設定（復活） */
+        .scroll-reveal {
             opacity: 0;
-            transform: translateY(-40px);
-            animation: splashLogo2FadeIn 1.0s cubic-bezier(0.16, 1, 0.3, 1) 8.3s forwards;
+            transform: translateY(25px);
+            transition: opacity 1.0s cubic-bezier(0.16, 1, 0.3, 1), transform 1.0s cubic-bezier(0.16, 1, 0.3, 1);
+            will-change: opacity, transform;
         }
 
-        @keyframes splashLogo2FadeIn {
-            0% {
-                opacity: 0;
-                transform: translateY(-40px) scale(0.92);
-            }
-            100% {
-                opacity: 1;
-                transform: translateY(-40px) scale(1);
-            }
-        }
-
-        .splash-title {
-            position: absolute;
-            transform: translateY(60px);
-            font-size: 0.65rem;
-            font-weight: 800;
-            color: #4f46e5;
-            letter-spacing: 0.22em;
-            opacity: 0;
-            text-align: center;
-            padding: 0 15px;
-            text-transform: uppercase;
-            animation: splashTitleFadeIn 1.0s cubic-bezier(0.16, 1, 0.3, 1) 8.3s forwards;
-        }
-
-        @keyframes splashTitleFadeIn {
-            0% {
-                opacity: 0;
-                transform: translateY(70px);
-            }
-            100% {
-                opacity: 0.8;
-                transform: translateY(60px);
-            }
+        .scroll-reveal.revealed {
+            opacity: 1;
+            transform: translateY(0);
         }
 
         header {
             text-align: center;
-            padding: 40px 20px 12px 20px;
+            padding: 50px 20px 16px 20px;
+            opacity: 0;
+            transform: translateY(15px);
+            animation: headerFadeIn 1.2s cubic-bezier(0.16, 1, 0.3, 1) 0.3s forwards;
+        }
+
+        @keyframes headerFadeIn {
+            to { opacity: 1; transform: translateY(0); }
         }
 
         .profile-avatar {
@@ -204,7 +196,7 @@
             border-radius: 50%;
             margin: 0 auto 16px auto;
             display: block;
-            box-shadow: 0 8px 20px rgba(180, 83, 9, 0.15);
+            box-shadow: 0 8px 20px rgba(180, 83, 9, 0.12);
             object-fit: cover;
             border: 3px solid #ffffff;
         }
@@ -233,7 +225,7 @@
         }
 
         header p {
-            margin: 12px 0 0 0;
+            margin: 14px 0 0 0;
             font-size: 0.85rem;
             color: #64748b;
         }
@@ -276,29 +268,56 @@
             }
         }
 
+        /* タイトル左右にトリニティをイメージした重なり三角形を配置 */
         .section-title {
             font-size: 0.85rem;
             font-weight: 700;
             color: #828fa3;
-            margin: 25px 0 12px 0;
+            margin: 35px 0 16px 0;
             text-align: center;
-            letter-spacing: 0.2em;
+            letter-spacing: 0.25em;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+        }
+
+        .section-title::before, .section-title::after {
+            content: "";
+            display: inline-block;
+            width: 0;
+            height: 0;
+            border-style: solid;
+        }
+        .section-title::before {
+            border-width: 0 0 10px 10px;
+            border-color: transparent transparent #b45309 transparent;
+        }
+        .section-title::after {
+            border-width: 0 10px 10px 0;
+            border-color: transparent #4d7c0f transparent transparent;
         }
 
         .program-card {
             background-color: #ffffff;
             border: 2px solid #e2d8c3;
-            background-image: linear-gradient(rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0.95));
+            /* 背景にうっすらと大きな三角形モチーフの透かしを入れる */
+            background-image: 
+                linear-gradient(120deg, rgba(180, 83, 9, 0.02) 25%, transparent 25%),
+                linear-gradient(240deg, rgba(77, 124, 15, 0.02) 25%, transparent 25%),
+                linear-gradient(rgba(255, 255, 255, 0.96), rgba(255, 255, 255, 0.96));
             border-radius: 16px;
             padding: 12px;
-            margin: 14px 0;
+            margin: 16px 0;
             box-shadow: 0 6px 18px rgba(139, 92, 26, 0.04);
-            transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            overflow: hidden;
         }
 
         .program-card:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 24px rgba(180, 83, 9, 0.06);
+            transform: translateY(-3px);
+            box-shadow: 0 12px 28px rgba(180, 83, 9, 0.07);
             border-color: #d4c5ab;
         }
 
@@ -484,6 +503,7 @@
             width: 100%;
         }
 
+        /* 視聴ボタン内の再生矢印も三角形の一種 */
         .btn-watch {
             background: linear-gradient(135deg, #fbbf24 0%, #d97706 100%);
             color: #ffffff;
@@ -539,11 +559,16 @@
             display: none;
         }
 
+        /* アコーディオンの矢印をきれいな正三角形に変更 */
         .work-details summary::before {
-            content: "▼";
-            font-size: 0.55rem;
-            transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            content: "";
             display: inline-block;
+            width: 0;
+            height: 0;
+            border-style: solid;
+            border-width: 6px 4px 0 4px;
+            border-color: #78716c transparent transparent transparent;
+            transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
         .work-details[open] summary::before {
@@ -736,9 +761,20 @@
 </head>
 <body>
 
-    <div class="bg_pattern Polka_v2"></div>
+    <div class="bg_pattern Triangle_lattice"></div>
 
     <div id="splash-screen">
+        <svg class="splash-trinity-bg" viewBox="0 0 100 100">
+            <polygon points="50,15 85,75 15,75" fill="none" stroke="url(#trinityGrad)" stroke-width="1.5" />
+            <defs>
+                <linearGradient id="trinityGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stop-color="#b45309" />
+                    <stop offset="50%" stop-color="#f5eeda" />
+                    <stop offset="100%" stop-color="#4d7c0f" />
+                </linearGradient>
+            </defs>
+        </svg>
+
         <div class="vs-container">
             <span class="vs-karaage">からあげ派</span>
             <span class="vs-text">VS</span>
@@ -749,8 +785,6 @@
             大分の食と風土が織りなす、<br>
             三位一体『鶏ニティ』。
         </div>
-        <img class="splash-logo-2" src="放送部アイコン.png" alt="放送部アイコン">
-        <div class="splash-title">Oita Uenogaoka Broadcast Club</div>
     </div>
 
     <header>
@@ -759,15 +793,15 @@
         <div class="school-tag">第50回全国高校総合文化祭 出品作品</div>
         <p>
             あきた総文2026に出品した作品です。ぜひご視聴ください！
-            <span class="notice-soft">※本サイトは大会参加者の皆様との作品交換用です。部外へのURL共有や, 画面収録などの保存はご遠慮ください。</span>
+            <span class="notice-soft">※本サイトは大会参加者の皆様との作品交換用です。部外へのURL共有や、画面収録などの保存はご遠慮ください。</span>
         </p>
     </header>
 
     <div class="container">
 
-        <div class="section-title">PROGRAMS</div>
+        <div class="section-title scroll-reveal">PROGRAMS</div>
 
-        <div class="program-card">
+        <div class="program-card scroll-reveal">
             <div class="video-player-container" id="player-1"></div>
 
             <a href="javascript:void(0)" onclick="triggerPlayFromCard(this, 'VjICagT4xw8')" class="program-main-link" title="作品を視聴する">
@@ -805,9 +839,9 @@
             </div>
         </div>
 
-        <div class="section-title">OFFICIAL SNS</div>
+        <div class="section-title scroll-reveal">OFFICIAL SNS</div>
 
-        <a href="https://www.instagram.com/oita_ueno.broadcast?igsh=dWhhaWJxNGsyanVu&utm_source=qr" target="_blank" class="btn-insta-banner">
+        <a href="https://www.instagram.com/oita_ueno.broadcast?igsh=dWhhaWJxNGsyanVu&utm_source=qr" target="_blank" class="btn-insta-banner scroll-reveal">
             <div class="insta-icon-container">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                     <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
@@ -821,9 +855,9 @@
             </div>
         </a>
 
-        <div class="section-title">OTHER CONTENTS</div>
+        <div class="section-title scroll-reveal">OTHER CONTENTS</div>
 
-        <div class="program-card">
+        <div class="program-card scroll-reveal">
             <div class="video-player-container" id="player-pv"></div>
 
             <a href="javascript:void(0)" onclick="triggerPlayFromCard(this, 'rwcsDeVlROE')" class="program-main-link" title="作品を視聴する">
@@ -847,7 +881,7 @@
             </div>
         </div>
 
-        <div class="message-card">
+        <div class="message-card scroll-reveal">
             <p>
                 全国の放送部の皆さん、ご視聴ありがとうございます！<br>
                 感想や日頃の活動の様子など、ぜひお聞かせください。<br>
@@ -871,15 +905,38 @@
     </footer>
 
     <script>
+        // スプラッシュ画面の制御（ロゴ削除に伴い8.5秒にスマートに短縮）
         window.addEventListener('load', () => {
             const splash = document.getElementById('splash-screen');
             setTimeout(() => {
                 splash.classList.add('loaded');
                 setTimeout(() => {
                     splash.style.display = 'none';
-                }, 1300);
-            }, 11000);
+                    initScrollReveal(); // スプラッシュ終了後にスクロール連動を初期化
+                }, 1200);
+            }, 8500);
         });
+
+        // スクロール連動フェードインアニメーション（復活）
+        function initScrollReveal() {
+            const revealElements = document.querySelectorAll('.scroll-reveal');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('revealed');
+                    }
+                });
+            }, {
+                root: null,
+                threshold: 0.05,
+                rootMargin: '0px 0px -30px 0px'
+            });
+
+            revealElements.forEach((el) => {
+                observer.observe(el);
+            });
+        }
 
         function triggerPlayFromCard(linkElement, videoId) {
             const card = linkElement.closest('.program-card');
