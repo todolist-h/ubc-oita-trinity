@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>大分県立大分上野丘高等学校 放送部 - 全国高校総合文化祭作品公開ページ</title>
-    <link rel="icon" href="放送部アイコン.png" type="image/png">
+    <link class="triangle-bg-element" rel="icon" href="放送部アイコン.png" type="image/png">
     <style>
         body {
             font-family: "Georgia", "Times New Roman", "Hiragino Mincho ProN", "Yu Mincho", "MS Mincho", serif;
@@ -14,11 +14,11 @@
             margin: 0;
             padding: 0;
             line-height: 1.8;
-            letter-spacing: 0.08em;
+            letter-spacing: 0.05em;
             overflow-x: hidden;
         }
 
-        /* 鶏ニティ：ランダムに散りばめられた幾何学三角形背景 */
+        /* 鶏ニティ：奥行きを立体的に表現した多層ランダム幾何学三角形背景 */
         .bg_pattern {
             position: fixed;
             top: 0;
@@ -37,24 +37,86 @@
             will-change: transform, opacity;
         }
 
-        /* 個々のランダムな三角形の配置と優しい浮遊アニメーション */
-        .tri-1 { top: 8%; left: 8%; width: 90px; height: 90px; stroke: rgba(180, 83, 9, 0.16); animation: floatSlow 22s ease-in-out infinite alternate; }
-        .tri-2 { top: 15%; right: 12%; width: 130px; height: 130px; stroke: rgba(77, 124, 15, 0.12); animation: floatReverse 28s ease-in-out infinite alternate; }
-        .tri-3 { top: 45%; left: -5%; width: 160px; height: 160px; stroke: rgba(212, 197, 171, 0.22); animation: floatSlow 32s ease-in-out infinite alternate; }
-        .tri-4 { top: 62%; right: 5%; width: 110px; height: 110px; stroke: rgba(180, 83, 9, 0.1); animation: floatReverse 24s ease-in-out infinite alternate; }
-        .tri-5 { bottom: 8%; left: 15%; width: 120px; height: 120px; stroke: rgba(77, 124, 15, 0.14); animation: floatSlow 26s ease-in-out infinite alternate; }
-        .tri-6 { bottom: 22%; right: 18%; width: 80px; height: 80px; stroke: rgba(212, 197, 171, 0.18); animation: floatSlow 19s ease-in-out infinite alternate; }
-        .tri-7 { top: 30%; right: 40%; width: 50px; height: 50px; stroke: rgba(180, 83, 9, 0.08); opacity: 0.7; }
-        .tri-8 { bottom: 40%; left: 35%; width: 70px; height: 70px; stroke: rgba(77, 124, 15, 0.09); opacity: 0.6; }
+        /* --- 1. 遠景レイヤー（小さく、極めて薄く、もっともゆっくり動くレイヤー。遠くのボケをうっすら表現。さらに追加） --- */
+        .tri-far {
+            filter: blur(0.5px);
+        }
+        .tri-1 { top: -10%; left: 5%; width: 45px; height: 45px; stroke: rgba(180, 83, 9, 0.05); animation: fallSlow 28s linear infinite; }
+        .tri-2 { top: 12%; right: 25%; width: 50px; height: 50px; stroke: rgba(77, 124, 15, 0.06); animation: floatDeep 30s ease-in-out infinite alternate; }
+        .tri-3 { top: -15%; left: 45%; width: 35px; height: 35px; stroke: rgba(212, 197, 171, 0.07); animation: fallSlow 34s linear infinite; animation-delay: -15s; }
+        .tri-4 { bottom: 15%; left: 10%; width: 45px; height: 45px; stroke: rgba(180, 83, 9, 0.05); animation: floatDeep 24s ease-in-out infinite alternate-reverse; }
+        .tri-5 { top: -12%; left: 85%; width: 40px; height: 40px; stroke: rgba(77, 124, 15, 0.06); animation: fallSlow 30s linear infinite; animation-delay: -8s; }
+        .tri-6 { bottom: 25%; right: 40%; width: 48px; height: 48px; stroke: rgba(212, 197, 171, 0.08); animation: floatDeep 26s ease-in-out infinite alternate; }
+        /* 遠景の追加三角形 */
+        .tri-27 { top: -10%; left: 25%; width: 38px; height: 38px; stroke: rgba(180, 83, 9, 0.04); animation: fallSlow 36s linear infinite; animation-delay: -5s; }
+        .tri-28 { bottom: 45%; left: 3%; width: 42px; height: 42px; stroke: rgba(77, 124, 15, 0.05); animation: floatDeep 32s ease-in-out infinite alternate; }
 
-        @keyframes floatSlow {
-            0% { transform: translateY(0) rotate(0deg) scale(1); }
-            100% { transform: translateY(-15px) rotate(10deg) scale(1.03); }
+        /* --- 2. 中景レイヤー（標準サイズ、適度な不透明度、なめらかな速度。一番くっきりと表示） --- */
+        .tri-7 { top: 25%; left: 22%; width: 85px; height: 85px; stroke: rgba(180, 83, 9, 0.11); animation: floatDeep 20s ease-in-out infinite alternate; }
+        .tri-8 { bottom: 12%; left: 35%; width: 75px; height: 75px; stroke: rgba(77, 124, 15, 0.12); animation: floatDeep 18s ease-in-out infinite alternate-reverse; }
+        .tri-9 { top: -12%; left: 20%; width: 90px; height: 90px; stroke: rgba(212, 197, 171, 0.14); animation: fallSlow 22s linear infinite; animation-delay: -12s; }
+        .tri-10 { top: 40%; right: 18%; width: 80px; height: 80px; stroke: rgba(180, 83, 9, 0.09); animation: floatDeep 19s ease-in-out infinite alternate; }
+        .tri-11 { top: -15%; left: 60%; width: 95px; height: 95px; stroke: rgba(77, 124, 15, 0.11); animation: fallSlow 24s linear infinite; animation-delay: -4s; }
+        .tri-12 { bottom: 35%; right: 12%; width: 70px; height: 70px; stroke: rgba(212, 197, 171, 0.12); animation: floatDeep 16s ease-in-out infinite alternate-reverse; }
+
+        /* --- 3. 近景レイヤー（大きく、手前を滑るように動くレイヤー。カメラの手前ボケを表現） --- */
+        .tri-near {
+            filter: blur(1.5px);
+        }
+        .tri-13 { top: -18%; left: 12%; width: 155px; height: 155px; stroke: rgba(180, 83, 9, 0.14); animation: fallSlow 12s linear infinite; animation-delay: -3s; }
+        .tri-14 { top: 18%; right: 5%; width: 145px; height: 145px; stroke: rgba(77, 124, 15, 0.13); animation: floatDeep 13s ease-in-out infinite alternate; }
+        .tri-15 { top: -20%; left: 70%; width: 165px; height: 165px; stroke: rgba(212, 197, 171, 0.16); animation: fallSlow 14s linear infinite; animation-delay: -18s; }
+        .tri-16 { bottom: -5%; left: 28%; width: 135px; height: 135px; stroke: rgba(77, 124, 15, 0.14); animation: floatDeep 11s ease-in-out infinite alternate-reverse; }
+
+        /* --- 4. 静止レイヤー（極めて小さく、もっとも薄い、動かずに佇む三角形。遠くの繊細な背景として機能。さらに増量） --- */
+        .tri-still {
+            filter: blur(0.3px);
+            opacity: 0.45;
+        }
+        .tri-17 { top: 6%; left: 34%; width: 24px; height: 24px; stroke: rgba(212, 197, 171, 0.12); }
+        .tri-18 { top: 35%; left: 16%; width: 28px; height: 28px; stroke: rgba(180, 83, 9, 0.06); }
+        .tri-19 { top: 64%; right: 28%; width: 22px; height: 22px; stroke: rgba(77, 124, 15, 0.08); }
+        .tri-20 { bottom: 32%; left: 55%; width: 32px; height: 32px; stroke: rgba(212, 197, 171, 0.10); }
+        .tri-21 { bottom: 8%; right: 9%; width: 26px; height: 28px; stroke: rgba(180, 83, 9, 0.05); }
+        /* 静止レイヤーの増量分 */
+        .tri-22 { top: 18%; left: 58%; width: 20px; height: 20px; stroke: rgba(180, 83, 9, 0.07); }
+        .tri-23 { top: 50%; left: 8%; width: 25px; height: 25px; stroke: rgba(212, 197, 171, 0.11); }
+        .tri-24 { top: 78%; left: 24%; width: 22px; height: 22px; stroke: rgba(77, 124, 15, 0.07); }
+        .tri-25 { bottom: 48%; right: 38%; width: 27px; height: 27px; stroke: rgba(180, 83, 9, 0.06); }
+        .tri-26 { top: 30%; right: 48%; width: 18px; height: 18px; stroke: rgba(77, 124, 15, 0.05); }
+
+        /* ゆっくり上から舞い降りてくるアニメーション */
+        @keyframes fallSlow {
+            0% {
+                transform: translateY(0) translateX(0) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(115vh) translateX(30px) rotate(360deg);
+                opacity: 0;
+            }
         }
 
-        @keyframes floatReverse {
-            0% { transform: translateY(0) rotate(0deg) scale(1); }
-            100% { transform: translateY(12px) rotate(-8deg) scale(0.97); }
+        /* その場でゆっくりと三次元的に動き回る・浮遊するアニメーション */
+        @keyframes floatDeep {
+            0% {
+                transform: translateY(0) translateX(0) rotate(0deg) scale(1);
+            }
+            33% {
+                transform: translateY(-25px) translateX(15px) rotate(15deg) scale(1.02);
+            }
+            66% {
+                transform: translateY(15px) translateX(-20px) rotate(-10deg) scale(0.98);
+            }
+            100% {
+                transform: translateY(-5px) translateX(10px) rotate(5deg) scale(1);
+            }
         }
 
         #splash-screen {
@@ -79,14 +141,14 @@
             visibility: hidden;
         }
 
-        /* スプラッシュ背景で静かに回転するトリニティ大三角形 */
+        /* スプラッシュ背景で静かに回転するトリニティ大三角形 (遅延時間をさらに+0.3sの4.3sに調整) */
         .splash-trinity-bg {
             position: absolute;
             width: clamp(260px, 75vw, 320px);
             height: clamp(260px, 75vw, 320px);
             opacity: 0;
             transform: scale(0.8) rotate(0deg);
-            animation: trinityBgFadeIn 2.5s cubic-bezier(0.25, 1, 0.5, 1) 4.0s forwards, trinityRotate 25s linear 4.0s infinite;
+            animation: trinityBgFadeIn 2.5s cubic-bezier(0.25, 1, 0.5, 1) 4.3s forwards, trinityRotate 25s linear 4.3s infinite;
             pointer-events: none;
             z-index: 1;
         }
@@ -166,6 +228,7 @@
             to { opacity: 0; transform: translateY(-15px); }
         }
 
+        /* 鶏ニティメッセージ：表示時間を+0.3秒増やして「4.1s」に延長！ */
         .trinity-message {
             position: absolute;
             font-size: clamp(0.92rem, 4vw, 1.1rem);
@@ -175,7 +238,7 @@
             opacity: 0;
             transform: scale(0.95);
             z-index: 2;
-            animation: messageSequence 3.8s cubic-bezier(0.25, 1, 0.5, 1) 4.5s forwards;
+            animation: messageSequence 4.1s cubic-bezier(0.25, 1, 0.5, 1) 4.8s forwards;
             line-height: 2.1;
             letter-spacing: 0.15em;
             width: 86%;
@@ -519,25 +582,6 @@
             padding-top: 8px;
         }
 
-        .action-btn {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 4px;
-            padding: 8px 10px;
-            height: 36px;
-            border-radius: 12px;
-            font-size: 0.72rem;
-            font-weight: 700;
-            text-decoration: none;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            outline: none;
-            user-select: none;
-            box-sizing: border-box;
-            width: 100%;
-        }
-
         /* 視聴ボタン内の再生矢印も三角形の一種 */
         .btn-watch {
             background: linear-gradient(135deg, #fbbf24 0%, #d97706 100%);
@@ -796,33 +840,45 @@
 </head>
 <body>
 
-    <!-- 鶏ニティ：ランダム浮かぶ三角形群背景 -->
+    <!-- 鶏ニティ：奥行きを立体的に表現した多層レイヤー浮遊三角形背景 -->
     <div class="bg_pattern">
-        <!-- 個別に角度やスケール・ストローク色を変えたランダムなSVG三角形 -->
-        <svg class="triangle-bg-element tri-1" viewBox="0 0 100 100">
-            <polygon points="50,15 90,85 10,85" />
-        </svg>
-        <svg class="triangle-bg-element tri-2" viewBox="0 0 100 100">
-            <polygon points="50,15 90,85 10,85" />
-        </svg>
-        <svg class="triangle-bg-element tri-3" viewBox="0 0 100 100">
-            <polygon points="50,15 90,85 10,85" />
-        </svg>
-        <svg class="triangle-bg-element tri-4" viewBox="0 0 100 100">
-            <polygon points="50,15 90,85 10,85" />
-        </svg>
-        <svg class="triangle-bg-element tri-5" viewBox="0 0 100 100">
-            <polygon points="50,15 90,85 10,85" />
-        </svg>
-        <svg class="triangle-bg-element tri-6" viewBox="0 0 100 100">
-            <polygon points="50,15 90,85 10,85" />
-        </svg>
-        <svg class="triangle-bg-element tri-7" viewBox="0 0 100 100">
-            <polygon points="50,15 90,85 10,85" />
-        </svg>
-        <svg class="triangle-bg-element tri-8" viewBox="0 0 100 100">
-            <polygon points="50,15 90,85 10,85" />
-        </svg>
+        <!-- 【遠景レイヤー】小さく、極限まで薄い、極めてゆっくり動く三角形。うっすらとソフトフォーカス（ボケ）を適用 -->
+        <svg class="triangle-bg-element tri-far tri-1" viewBox="0 0 100 100"><polygon points="50,15 90,85 10,85" /></svg>
+        <svg class="triangle-bg-element tri-far tri-2" viewBox="0 0 100 100"><polygon points="50,15 90,85 10,85" /></svg>
+        <svg class="triangle-bg-element tri-far tri-3" viewBox="0 0 100 100"><polygon points="50,15 90,85 10,85" /></svg>
+        <svg class="triangle-bg-element tri-far tri-4" viewBox="0 0 100 100"><polygon points="50,15 90,85 10,85" /></svg>
+        <svg class="triangle-bg-element tri-far tri-5" viewBox="0 0 100 100"><polygon points="50,15 90,85 10,85" /></svg>
+        <svg class="triangle-bg-element tri-far tri-6" viewBox="0 0 100 100"><polygon points="50,15 90,85 10,85" /></svg>
+        <!-- 【追加：遠景レイヤー】 -->
+        <svg class="triangle-bg-element tri-far tri-27" viewBox="0 0 100 100"><polygon points="50,15 90,85 10,85" /></svg>
+        <svg class="triangle-bg-element tri-far tri-28" viewBox="0 0 100 100"><polygon points="50,15 90,85 10,85" /></svg>
+
+        <!-- 【中景レイヤー】標準サイズ、中間の不透明度、なめらかな速度。ピントが合っている基本レイヤー -->
+        <svg class="triangle-bg-element tri-7" viewBox="0 0 100 100"><polygon points="50,15 90,85 10,85" /></svg>
+        <svg class="triangle-bg-element tri-8" viewBox="0 0 100 100"><polygon points="50,15 90,85 10,85" /></svg>
+        <svg class="triangle-bg-element tri-9" viewBox="0 0 100 100"><polygon points="50,15 90,85 10,85" /></svg>
+        <svg class="triangle-bg-element tri-10" viewBox="0 0 100 100"><polygon points="50,15 90,85 10,85" /></svg>
+        <svg class="triangle-bg-element tri-11" viewBox="0 0 100 100"><polygon points="50,15 90,85 10,85" /></svg>
+        <svg class="triangle-bg-element tri-12" viewBox="0 0 100 100"><polygon points="50,15 90,85 10,85" /></svg>
+
+        <!-- 【近景レイヤー】大きく、少しだけ濃いめ、目の前を大きく横切る。ダイナミックな手前ボケを適用 -->
+        <svg class="triangle-bg-element tri-near tri-13" viewBox="0 0 100 100"><polygon points="50,15 90,85 10,85" /></svg>
+        <svg class="triangle-bg-element tri-near tri-14" viewBox="0 0 100 100"><polygon points="50,15 90,85 10,85" /></svg>
+        <svg class="triangle-bg-element tri-near tri-15" viewBox="0 0 100 100"><polygon points="50,15 90,85 10,85" /></svg>
+        <svg class="triangle-bg-element tri-near tri-16" viewBox="0 0 100 100"><polygon points="50,15 90,85 10,85" /></svg>
+
+        <!-- 【静止レイヤー】極薄・極小・完全に静止して画面の奥に浮遊感のアクセントを作る三角形（さらに増量） -->
+        <svg class="triangle-bg-element tri-still tri-17" viewBox="0 0 100 100"><polygon points="50,15 90,85 10,85" /></svg>
+        <svg class="triangle-bg-element tri-still tri-18" viewBox="0 0 100 100"><polygon points="50,15 90,85 10,85" /></svg>
+        <svg class="triangle-bg-element tri-still tri-19" viewBox="0 0 100 100"><polygon points="50,15 90,85 10,85" /></svg>
+        <svg class="triangle-bg-element tri-still tri-20" viewBox="0 0 100 100"><polygon points="50,15 90,85 10,85" /></svg>
+        <svg class="triangle-bg-element tri-still tri-21" viewBox="0 0 100 100"><polygon points="50,15 90,85 10,85" /></svg>
+        <!-- 【追加：静止レイヤー】 -->
+        <svg class="triangle-bg-element tri-still tri-22" viewBox="0 0 100 100"><polygon points="50,15 90,85 10,85" /></svg>
+        <svg class="triangle-bg-element tri-still tri-23" viewBox="0 0 100 100"><polygon points="50,15 90,85 10,85" /></svg>
+        <svg class="triangle-bg-element tri-still tri-24" viewBox="0 0 100 100"><polygon points="50,15 90,85 10,85" /></svg>
+        <svg class="triangle-bg-element tri-still tri-25" viewBox="0 0 100 100"><polygon points="50,15 90,85 10,85" /></svg>
+        <svg class="triangle-bg-element tri-still tri-26" viewBox="0 0 100 100"><polygon points="50,15 90,85 10,85" /></svg>
     </div>
 
     <div id="splash-screen">
@@ -854,7 +910,7 @@
         <h1>大分県立大分上野丘高等学校 放送部</h1>
         <div class="school-tag">第50回全国高校総合文化祭 出品作品</div>
         <p>
-            あきた総文2026に出品した作品です。ぜひご視聴ください！
+            あきた総文2026出品作品です。ぜひご視聴ください！
             <span class="notice-soft">※本サイトは大会参加者の皆様との作品交換用です。部外へのURL共有や、画面収録などの保存はご遠慮ください。</span>
         </p>
     </header>
@@ -967,7 +1023,7 @@
     </footer>
 
     <script>
-        // スプラッシュ画面の制御（メッセージが消えたタイミングでスムーズに本編へ遷移）
+        // スプラッシュ画面の制御（メッセージ表示時間の増加に伴い、合計9.1秒[9100ms]に調整）
         window.addEventListener('load', () => {
             const splash = document.getElementById('splash-screen');
             setTimeout(() => {
@@ -976,7 +1032,7 @@
                     splash.style.display = 'none';
                     initScrollReveal(); // スプラッシュ終了後にスクロール連動を初期化
                 }, 1200);
-            }, 8500);
+            }, 9100);
         });
 
         // スクロール連動フェードインアニメーション
