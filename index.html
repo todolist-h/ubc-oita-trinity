@@ -3,17 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>大分県立大分上野丘高等学校放送部 全国高校総合文化祭作品公開ページ</title>
-    <link rel="icon" href="放送部アイコン.png" type="image/png">
+    <title>大分県立大分上野丘高等学校 放送部 - 全国高校総合文化祭作品公開ページ</title>
+    <link class="triangle-bg-element" rel="icon" href="放送部アイコン.png" type="image/png">
     
-    <!-- 全端末で完全に同一の美しい和モダン明朝体を表示するための Google Web フォント -->
+    <!-- 全端末で完全に同一の美しい和モダン明朝体を表示するためのGoogle Webフォント -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;700;900&display=swap" rel="stylesheet">
     
-    <!-- Font Awesome Icons (ロック表示・共通アイコン用) -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
     <style>
         body {
             font-family: "Noto Serif JP", "Georgia", "Times New Roman", "Hiragino Mincho ProN", "Yu Mincho", "MS Mincho", serif;
@@ -27,7 +24,7 @@
             overflow-x: hidden;
         }
 
-        /* 鶏ニティ:奥行きを立体的に表現した多層ランダム幾何学三角形背景 */
+        /* 鶏ニティ：奥行きを立体的に表現した多層ランダム幾何学三角形背景 */
         .bg_pattern {
             position: fixed;
             top: 0;
@@ -46,18 +43,21 @@
             will-change: transform, opacity;
         }
 
-        /* 1. 遠景レイヤー */
-        .tri-far { filter: blur(0.5px); }
+        /* --- 1. 遠景レイヤー（小さく、極めて薄く、もっともゆっくり動くレイヤー。遠くのボケをうっすら表現。さらに追加） --- */
+        .tri-far {
+            filter: blur(0.5px);
+        }
         .tri-1 { top: -10%; left: 5%; width: 45px; height: 45px; stroke: rgba(180, 83, 9, 0.05); animation: fallSlow 28s linear infinite; }
         .tri-2 { top: 12%; right: 25%; width: 50px; height: 50px; stroke: rgba(77, 124, 15, 0.06); animation: floatDeep 30s ease-in-out infinite alternate; }
         .tri-3 { top: -15%; left: 45%; width: 35px; height: 35px; stroke: rgba(212, 197, 171, 0.07); animation: fallSlow 34s linear infinite; animation-delay: -15s; }
         .tri-4 { bottom: 15%; left: 10%; width: 45px; height: 45px; stroke: rgba(180, 83, 9, 0.05); animation: floatDeep 24s ease-in-out infinite alternate-reverse; }
         .tri-5 { top: -12%; left: 85%; width: 40px; height: 40px; stroke: rgba(77, 124, 15, 0.06); animation: fallSlow 30s linear infinite; animation-delay: -8s; }
         .tri-6 { bottom: 25%; right: 40%; width: 48px; height: 48px; stroke: rgba(212, 197, 171, 0.08); animation: floatDeep 26s ease-in-out infinite alternate; }
+        /* 遠景の追加三角形 */
         .tri-27 { top: -10%; left: 25%; width: 38px; height: 38px; stroke: rgba(180, 83, 9, 0.04); animation: fallSlow 36s linear infinite; animation-delay: -5s; }
         .tri-28 { bottom: 45%; left: 3%; width: 42px; height: 42px; stroke: rgba(77, 124, 15, 0.05); animation: floatDeep 32s ease-in-out infinite alternate; }
 
-        /* 2. 中景レイヤー */
+        /* --- 2. 中景レイヤー（標準サイズ、適度な不透明度、なめらかな速度。一番くっきりと表示） --- */
         .tri-7 { top: 25%; left: 22%; width: 85px; height: 85px; stroke: rgba(180, 83, 9, 0.11); animation: floatDeep 20s ease-in-out infinite alternate; }
         .tri-8 { bottom: 12%; left: 35%; width: 75px; height: 75px; stroke: rgba(77, 124, 15, 0.12); animation: floatDeep 18s ease-in-out infinite alternate-reverse; }
         .tri-9 { top: -12%; left: 20%; width: 90px; height: 90px; stroke: rgba(212, 197, 171, 0.14); animation: fallSlow 22s linear infinite; animation-delay: -12s; }
@@ -65,41 +65,66 @@
         .tri-11 { top: -15%; left: 60%; width: 95px; height: 95px; stroke: rgba(77, 124, 15, 0.11); animation: fallSlow 24s linear infinite; animation-delay: -4s; }
         .tri-12 { bottom: 35%; right: 12%; width: 70px; height: 70px; stroke: rgba(212, 197, 171, 0.12); animation: floatDeep 16s ease-in-out infinite alternate-reverse; }
 
-        /* 3. 近景レイヤー */
-        .tri-near { filter: blur(1.5px); }
+        /* --- 3. 近景レイヤー（大きく、手前を滑るように動くレイヤー。カメラの手前ボケを表現） --- */
+        .tri-near {
+            filter: blur(1.5px);
+        }
         .tri-13 { top: -18%; left: 12%; width: 155px; height: 155px; stroke: rgba(180, 83, 9, 0.14); animation: fallSlow 12s linear infinite; animation-delay: -3s; }
         .tri-14 { top: 18%; right: 5%; width: 145px; height: 145px; stroke: rgba(77, 124, 15, 0.13); animation: floatDeep 13s ease-in-out infinite alternate; }
         .tri-15 { top: -20%; left: 70%; width: 165px; height: 165px; stroke: rgba(212, 197, 171, 0.16); animation: fallSlow 14s linear infinite; animation-delay: -18s; }
         .tri-16 { bottom: -5%; left: 28%; width: 135px; height: 135px; stroke: rgba(77, 124, 15, 0.14); animation: floatDeep 11s ease-in-out infinite alternate-reverse; }
 
-        /* 4. 静止レイヤー */
-        .tri-still { filter: blur(0.3px); opacity: 0.45; }
+        /* --- 4. 静止レイヤー（極めて小さく、もっとも薄い、動かずに佇む三角形。遠くの繊細な背景として機能。さらに増量） --- */
+        .tri-still {
+            filter: blur(0.3px);
+            opacity: 0.45;
+        }
         .tri-17 { top: 6%; left: 34%; width: 24px; height: 24px; stroke: rgba(212, 197, 171, 0.12); }
         .tri-18 { top: 35%; left: 16%; width: 28px; height: 28px; stroke: rgba(180, 83, 9, 0.06); }
         .tri-19 { top: 64%; right: 28%; width: 22px; height: 22px; stroke: rgba(77, 124, 15, 0.08); }
         .tri-20 { bottom: 32%; left: 55%; width: 32px; height: 32px; stroke: rgba(212, 197, 171, 0.10); }
         .tri-21 { bottom: 8%; right: 9%; width: 26px; height: 28px; stroke: rgba(180, 83, 9, 0.05); }
+        /* 静止レイヤーの増量分 */
         .tri-22 { top: 18%; left: 58%; width: 20px; height: 20px; stroke: rgba(180, 83, 9, 0.07); }
         .tri-23 { top: 50%; left: 8%; width: 25px; height: 25px; stroke: rgba(212, 197, 171, 0.11); }
         .tri-24 { top: 78%; left: 24%; width: 22px; height: 22px; stroke: rgba(77, 124, 15, 0.07); }
         .tri-25 { bottom: 48%; right: 38%; width: 27px; height: 27px; stroke: rgba(180, 83, 9, 0.06); }
         .tri-26 { top: 30%; right: 48%; width: 18px; height: 18px; stroke: rgba(77, 124, 15, 0.05); }
 
+        /* ゆっくり上から舞い降りてくるアニメーション */
         @keyframes fallSlow {
-            0% { transform: translateY(0) translateX(0) rotate(0deg); opacity: 0; }
-            10% { opacity: 1; }
-            90% { opacity: 1; }
-            100% { transform: translateY(115vh) translateX(30px) rotate(360deg); opacity: 0; }
+            0% {
+                transform: translateY(0) translateX(0) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(115vh) translateX(30px) rotate(360deg);
+                opacity: 0;
+            }
         }
 
+        /* その場でゆっくりと三次元的に動き回る・浮遊するアニメーション */
         @keyframes floatDeep {
-            0% { transform: translateY(0) translateX(0) rotate(0deg) scale(1); }
-            33% { transform: translateY(-25px) translateX(15px) rotate(15deg) scale(1.02); }
-            66% { transform: translateY(15px) translateX(-20px) rotate(-10deg) scale(0.98); }
-            100% { transform: translateY(-5px) translateX(10px) rotate(5deg) scale(1); }
+            0% {
+                transform: translateY(0) translateX(0) rotate(0deg) scale(1);
+            }
+            33% {
+                transform: translateY(-25px) translateX(15px) rotate(15deg) scale(1.02);
+            }
+            66% {
+                transform: translateY(15px) translateX(-20px) rotate(-10deg) scale(0.98);
+            }
+            100% {
+                transform: translateY(-5px) translateX(10px) rotate(5deg) scale(1);
+            }
         }
 
-        /* スプラッシュ画面設定 */
         #splash-screen {
             position: fixed;
             top: 0;
@@ -122,6 +147,7 @@
             visibility: hidden;
         }
 
+        /* スプラッシュ背景で静かに回転するトリニティ大三角形 (遅延時間をさらに+0.3sの4.3sに調整) */
         .splash-trinity-bg {
             position: absolute;
             width: clamp(260px, 75vw, 320px);
@@ -133,8 +159,12 @@
             z-index: 1;
         }
 
-        @keyframes trinityBgFadeIn { to { opacity: 0.12; transform: scale(1) rotate(0deg); } }
-        @keyframes trinityRotate { 100% { transform: rotate(360deg); } }
+        @keyframes trinityBgFadeIn {
+            to { opacity: 0.12; transform: scale(1) rotate(0deg); }
+        }
+        @keyframes trinityRotate {
+            100% { transform: rotate(360deg); }
+        }
 
         .vs-container {
             position: absolute;
@@ -152,6 +182,7 @@
             flex-wrap: nowrap;
         }
 
+        /* スマホ実機で見切れないよう clamp でフォントサイズを流動的に自動最適化 */
         .vs-karaage {
             font-size: clamp(1.15rem, 5.2vw, 1.6rem);
             font-weight: 900;
@@ -160,7 +191,7 @@
             transform: translateX(-30px);
             animation: slideInLeft 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.1) 0.8s forwards;
             text-shadow: 0 2px 8px rgba(180, 83, 9, 0.15);
-            font-family: "Noto Serif JP", serif;
+            font-family: "Noto Serif JP", "Hiragino Mincho ProN", "Yu Mincho", serif;
             white-space: nowrap;
         }
 
@@ -183,15 +214,27 @@
             transform: translateX(30px);
             animation: slideInRight 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.1) 0.8s forwards;
             text-shadow: 0 2px 8px rgba(77, 124, 15, 0.15);
-            font-family: "Noto Serif JP", serif;
+            font-family: "Noto Serif JP", "Hiragino Mincho ProN", "Yu Mincho", serif;
             white-space: nowrap;
         }
 
-        @keyframes slideInLeft { to { opacity: 1; transform: translateX(0); } }
-        @keyframes slideInRight { to { opacity: 1; transform: translateX(0); } }
-        @keyframes popIn { to { opacity: 1; transform: scale(1); } }
-        @keyframes vsFadeOut { to { opacity: 0; transform: translateY(-15px); } }
+        @keyframes slideInLeft {
+            to { opacity: 1; transform: translateX(0); }
+        }
 
+        @keyframes slideInRight {
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        @keyframes popIn {
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        @keyframes vsFadeOut {
+            to { opacity: 0; transform: translateY(-15px); }
+        }
+
+        /* 鶏ニティメッセージ：表示時間を+0.3秒増やして「4.1s」に延長！ */
         .trinity-message {
             position: absolute;
             font-size: clamp(0.92rem, 4vw, 1.1rem);
@@ -206,14 +249,18 @@
             letter-spacing: 0.15em;
             width: 86%;
             max-width: 420px;
-            font-family: "Noto Serif JP", serif;
+            font-family: "Noto Serif JP", "Hiragino Mincho ProN", "Yu Mincho", serif;
             border-left: 2px solid #b45309;
             border-right: 2px solid #4d7c0f;
             padding: 0 10px;
             box-sizing: border-box;
         }
 
-        .phrase-block { display: inline-block; white-space: nowrap; }
+        /* 重要な日本語フレーズが途中で崩れて改行されるのを防ぐ display指定 */
+        .phrase-block {
+            display: inline-block;
+            white-space: nowrap;
+        }
 
         @keyframes messageSequence {
             0% { opacity: 0; transform: scale(0.95); }
@@ -222,47 +269,18 @@
             100% { opacity: 0; transform: scale(0.95); }
         }
 
-        /* 大会出品時 非公開用ロック＆ぼかしスタイル */
-        .lock-blur {
-            filter: blur(10px) grayscale(30%);
-            pointer-events: none;
-            user-select: none;
-        }
-
-        #contestLockOverlay {
-            position: fixed;
-            inset: 0;
-            z-index: 9000;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
-            background: rgba(15, 23, 42, 0.75);
-            backdrop-filter: blur(8px);
-            transition: all 0.5s ease;
-        }
-
-        .lock-card {
-            background: #ffffff;
-            border-radius: 24px;
-            padding: 32px 24px;
-            max-width: 480px;
-            width: 100%;
-            text-align: center;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
-            border: 2px solid #f59e0b;
-            position: relative;
-            box-sizing: border-box;
-        }
-
-        /* コンテンツエリア設定 */
+        /* スクロール連動フェードイン用の基本設定 */
         .scroll-reveal {
             opacity: 0;
             transform: translateY(25px);
             transition: opacity 1.0s cubic-bezier(0.16, 1, 0.3, 1), transform 1.0s cubic-bezier(0.16, 1, 0.3, 1);
             will-change: opacity, transform;
         }
-        .scroll-reveal.revealed { opacity: 1; transform: translateY(0); }
+
+        .scroll-reveal.revealed {
+            opacity: 1;
+            transform: translateY(0);
+        }
 
         header {
             text-align: center;
@@ -272,7 +290,9 @@
             animation: headerFadeIn 1.2s cubic-bezier(0.16, 1, 0.3, 1) 0.3s forwards;
         }
 
-        @keyframes headerFadeIn { to { opacity: 1; transform: translateY(0); } }
+        @keyframes headerFadeIn {
+            to { opacity: 1; transform: translateY(0); }
+        }
 
         .profile-avatar {
             width: 95px;
@@ -291,7 +311,7 @@
             font-weight: 700;
             color: #1e293b;
             line-height: 1.4;
-            font-family: "Noto Serif JP", serif;
+            font-family: "Noto Serif JP", "Hiragino Mincho ProN", "Yu Mincho", serif;
         }
 
         header .school-tag {
@@ -312,10 +332,10 @@
             margin: 14px 0 0 0;
             font-size: 0.85rem;
             color: #64748b;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Hiragino Kaku Gothic ProN", sans-serif;
         }
 
-        header p.notice-soft {
+        header p .notice-soft {
             display: block;
             font-size: 0.72rem;
             color: #828fa3;
@@ -332,17 +352,28 @@
         }
 
         @media (min-width: 768px) {
-            .container { max-width: 600px; padding: 20px 24px 100px 24px; }
-            .btn-insta-banner { display: flex !important; width: 100% !important; max-width: 480px !important; margin-left: auto !important; margin-right: auto !important; }
+            .container {
+                max-width: 600px;
+                padding: 20px 24px 100px 24px;
+            }
+
+            .btn-insta-banner {
+                display: flex !important;
+                width: 100% !important;
+                max-width: 480px !important;
+                margin-left: auto !important;
+                margin-right: auto !important;
+            }
+
+            .message-card, .container > .program-card {
+                width: 100%;
+                max-width: 480px;
+                margin-left: auto;
+                margin-right: auto;
+            }
         }
 
-        .message-card, .container > .program-card {
-            width: 100%;
-            max-width: 480px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
+        /* タイトル左右にトリニティをイメージした重なり三角形を配置 */
         .section-title {
             font-size: 0.85rem;
             font-weight: 700;
@@ -363,12 +394,10 @@
             height: 0;
             border-style: solid;
         }
-
         .section-title::before {
             border-width: 0 0 10px 10px;
             border-color: transparent transparent #b45309 transparent;
         }
-
         .section-title::after {
             border-width: 0 10px 10px 0;
             border-color: transparent #4d7c0f transparent transparent;
@@ -377,7 +406,8 @@
         .program-card {
             background-color: #ffffff;
             border: 2px solid #e2d8c3;
-            background-image:
+            /* 背景にうっすらと大きな三角形モチーフの透かしを入れる */
+            background-image: 
                 linear-gradient(120deg, rgba(180, 83, 9, 0.02) 25%, transparent 25%),
                 linear-gradient(240deg, rgba(77, 124, 15, 0.02) 25%, transparent 25%),
                 linear-gradient(rgba(255, 255, 255, 0.96), rgba(255, 255, 255, 0.96));
@@ -398,7 +428,7 @@
 
         .video-player-container {
             width: 100%;
-            aspect-ratio: 16/9;
+            aspect-ratio: 16 / 9;
             border-radius: 12px;
             overflow: hidden;
             background-color: #000000;
@@ -408,19 +438,37 @@
             margin-bottom: 0;
             animation: slideDownPlayer 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.1) forwards;
         }
-
         @keyframes slideDownPlayer {
-            from { opacity: 0; transform: translateY(-15px) scale(0.93); max-height: 0; margin-bottom: 0; }
-            to { opacity: 1; transform: translateY(0) scale(1); max-height: 282px; margin-bottom: 8px; }
+            from {
+                opacity: 0;
+                transform: translateY(-15px) scale(0.93);
+                max-height: 0;
+                margin-bottom: 0;
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+                max-height: 282px;
+                margin-bottom: 8px;
+            }
         }
 
         .video-player-container.slide-up {
             animation: slideUpPlayer 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.15) forwards;
         }
-
         @keyframes slideUpPlayer {
-            from { opacity: 1; transform: translateY(0) scale(1); max-height: 282px; margin-bottom: 8px; }
-            to { opacity: 0; transform: translateY(-15px) scale(0.93); max-height: 0; margin-bottom: 0; }
+            from {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+                max-height: 282px;
+                margin-bottom: 8px;
+            }
+            to {
+                opacity: 0;
+                transform: translateY(-15px) scale(0.93);
+                max-height: 0;
+                margin-bottom: 0;
+            }
         }
 
         .program-main-link {
@@ -531,7 +579,7 @@
             overflow: hidden;
             text-overflow: ellipsis;
             margin-top: 2px;
-            font-family: "Noto Serif JP", serif;
+            font-family: "Noto Serif JP", "Hiragino Mincho ProN", "Yu Mincho", serif;
         }
 
         .program-actions {
@@ -543,6 +591,10 @@
             padding-top: 8px;
         }
 
+        /* 視聴用コントロールボタン 
+          フォントがボディの明朝体に変更されて細くなってしまっていたバグを修復！
+          ゴシック体を再定義し、丸みと太さ、スタイリッシュな視認性を完全に復元しました。
+        */
         .action-btn {
             display: flex;
             align-items: center;
@@ -560,10 +612,11 @@
             user-select: none;
             box-sizing: border-box;
             width: 100%;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Hiragino Kaku Gothic ProN", "Hiragino Sans", Meiryo, sans-serif;
             letter-spacing: 0.05em;
         }
 
+        /* 視聴ボタン内の再生矢印も三角形の一種 */
         .btn-watch {
             background: linear-gradient(135deg, #fbbf24 0%, #d97706 100%);
             color: #ffffff;
@@ -616,8 +669,11 @@
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
         }
 
-        .work-details summary::-webkit-details-marker { display: none; }
+        .work-details summary::-webkit-details-marker {
+            display: none;
+        }
 
+        /* アコーディオンの矢印をきれいな正三角形に変更 */
         .work-details summary::before {
             content: "";
             display: inline-block;
@@ -629,7 +685,9 @@
             transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
-        .work-details[open] summary::before { transform: rotate(180deg); }
+        .work-details[open] summary::before {
+            transform: rotate(180deg);
+        }
 
         .work-details[open] {
             box-shadow: 0 4px 12px rgba(120, 113, 108, 0.05);
@@ -642,6 +700,22 @@
             box-sizing: border-box;
             max-height: 140px;
             overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .details-content::-webkit-scrollbar {
+            width: 5px;
+        }
+        .details-content::-webkit-scrollbar-track {
+            background: #fafaf9;
+            border-radius: 10px;
+        }
+        .details-content::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 10px;
+        }
+        .details-content::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
         }
 
         .details-section-title {
@@ -655,35 +729,16 @@
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
         }
 
-        .details-section-title:first-of-type { margin-top: 0; }
+        .details-section-title:first-of-type {
+            margin-top: 0;
+        }
 
         .details-content-text {
             font-size: 0.75rem;
             color: #475569;
             line-height: 1.6;
             white-space: pre-wrap;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-        }
-
-        /* 制作意図・非公開保護カード */
-        .intent-locked-card {
-            background-color: #f8fafc;
-            border: 1px dashed #cbd5e1;
-            border-radius: 10px;
-            padding: 16px;
-            text-align: center;
-            color: #64748b;
-            font-size: 0.75rem;
-            line-height: 1.6;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-        }
-
-        .btn-locked {
-            background: #f1f5f9 !important;
-            color: #94a3b8 !important;
-            border: 1px solid #e2e8f0 !important;
-            cursor: not-allowed !important;
-            box-shadow: none !important;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Hiragino Kaku Gothic ProN", sans-serif;
         }
 
         .btn-insta-banner {
@@ -724,7 +779,7 @@
             display: flex;
             flex-direction: column;
             text-align: left;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Hiragino Kaku Gothic ProN", sans-serif;
         }
 
         .btn-insta-banner .insta-text .insta-label {
@@ -756,7 +811,9 @@
             opacity: 0.95;
         }
 
-        .btn-insta-banner:hover::after { transform: translateX(4px); }
+        .btn-insta-banner:hover::after {
+            transform: translateX(4px);
+        }
 
         .message-card {
             background-color: rgba(255, 255, 255, 0.6);
@@ -773,7 +830,7 @@
             font-size: 0.8rem;
             color: #475569;
             line-height: 1.8;
-            font-family: "Noto Serif JP", serif;
+            font-family: "Noto Serif JP", "Hiragino Mincho ProN", "Yu Mincho", serif;
         }
 
         .floating-insta {
@@ -794,7 +851,10 @@
             color: #ffffff;
         }
 
-        .floating-insta svg { width: 24px; height: 24px; }
+        .floating-insta svg {
+            width: 24px;
+            height: 24px;
+        }
 
         .floating-insta:hover {
             transform: translateY(-4px) scale(1.08);
@@ -808,7 +868,7 @@
             color: #878684;
             letter-spacing: 0.05em;
             line-height: 1.6;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Hiragino Kaku Gothic ProN", sans-serif;
         }
 
         footer .copyright-notice {
@@ -819,19 +879,20 @@
 </head>
 <body>
 
-    <!-- 鶏ニティ:奥行きを立体的に表現した多層レイヤー浮遊三角形背景 -->
+    <!-- 鶏ニティ：奥行きを立体的に表現した多層レイヤー浮遊三角形背景 -->
     <div class="bg_pattern">
-        <!-- 遠景レイヤー -->
+        <!-- 【遠景レイヤー】小さく、極限まで薄い、極めてゆっくり動く三角形。うっすらとソフトフォーカス（ボケ）を適用 -->
         <svg class="triangle-bg-element tri-far tri-1" viewBox="0 0 100 100"><polygon points="50,15 90,85 10,85" /></svg>
         <svg class="triangle-bg-element tri-far tri-2" viewBox="0 0 100 100"><polygon points="50,15 90,85 10,85" /></svg>
         <svg class="triangle-bg-element tri-far tri-3" viewBox="0 0 100 100"><polygon points="50,15 90,85 10,85" /></svg>
         <svg class="triangle-bg-element tri-far tri-4" viewBox="0 0 100 100"><polygon points="50,15 90,85 10,85" /></svg>
         <svg class="triangle-bg-element tri-far tri-5" viewBox="0 0 100 100"><polygon points="50,15 90,85 10,85" /></svg>
         <svg class="triangle-bg-element tri-far tri-6" viewBox="0 0 100 100"><polygon points="50,15 90,85 10,85" /></svg>
+        <!-- 【追加：遠景レイヤー】 -->
         <svg class="triangle-bg-element tri-far tri-27" viewBox="0 0 100 100"><polygon points="50,15 90,85 10,85" /></svg>
         <svg class="triangle-bg-element tri-far tri-28" viewBox="0 0 100 100"><polygon points="50,15 90,85 10,85" /></svg>
 
-        <!-- 中景レイヤー -->
+        <!-- 【中景レイヤー】標準サイズ、中間の不透明度、なめらかな速度。ピントが合っている基本レイヤー -->
         <svg class="triangle-bg-element tri-7" viewBox="0 0 100 100"><polygon points="50,15 90,85 10,85" /></svg>
         <svg class="triangle-bg-element tri-8" viewBox="0 0 100 100"><polygon points="50,15 90,85 10,85" /></svg>
         <svg class="triangle-bg-element tri-9" viewBox="0 0 100 100"><polygon points="50,15 90,85 10,85" /></svg>
@@ -839,18 +900,19 @@
         <svg class="triangle-bg-element tri-11" viewBox="0 0 100 100"><polygon points="50,15 90,85 10,85" /></svg>
         <svg class="triangle-bg-element tri-12" viewBox="0 0 100 100"><polygon points="50,15 90,85 10,85" /></svg>
 
-        <!-- 近景レイヤー -->
+        <!-- 【近景レイヤー】大きく、少しだけ濃いめ、目の前を大きく横切る。ダイナミックな手前ボケを適用 -->
         <svg class="triangle-bg-element tri-near tri-13" viewBox="0 0 100 100"><polygon points="50,15 90,85 10,85" /></svg>
         <svg class="triangle-bg-element tri-near tri-14" viewBox="0 0 100 100"><polygon points="50,15 90,85 10,85" /></svg>
         <svg class="triangle-bg-element tri-near tri-15" viewBox="0 0 100 100"><polygon points="50,15 90,85 10,85" /></svg>
         <svg class="triangle-bg-element tri-near tri-16" viewBox="0 0 100 100"><polygon points="50,15 90,85 10,85" /></svg>
 
-        <!-- 静止レイヤー -->
+        <!-- 【静止レイヤー】極薄・極小・完全に静止して画面の奥に浮遊感のアクセントを作る三角形（さらに増量） -->
         <svg class="triangle-bg-element tri-still tri-17" viewBox="0 0 100 100"><polygon points="50,15 90,85 10,85" /></svg>
         <svg class="triangle-bg-element tri-still tri-18" viewBox="0 0 100 100"><polygon points="50,15 90,85 10,85" /></svg>
         <svg class="triangle-bg-element tri-still tri-19" viewBox="0 0 100 100"><polygon points="50,15 90,85 10,85" /></svg>
         <svg class="triangle-bg-element tri-still tri-20" viewBox="0 0 100 100"><polygon points="50,15 90,85 10,85" /></svg>
         <svg class="triangle-bg-element tri-still tri-21" viewBox="0 0 100 100"><polygon points="50,15 90,85 10,85" /></svg>
+        <!-- 【追加：静止レイヤー】 -->
         <svg class="triangle-bg-element tri-still tri-22" viewBox="0 0 100 100"><polygon points="50,15 90,85 10,85" /></svg>
         <svg class="triangle-bg-element tri-still tri-23" viewBox="0 0 100 100"><polygon points="50,15 90,85 10,85" /></svg>
         <svg class="triangle-bg-element tri-still tri-24" viewBox="0 0 100 100"><polygon points="50,15 90,85 10,85" /></svg>
@@ -858,7 +920,6 @@
         <svg class="triangle-bg-element tri-still tri-26" viewBox="0 0 100 100"><polygon points="50,15 90,85 10,85" /></svg>
     </div>
 
-    <!-- スプラッシュ画面 -->
     <div id="splash-screen">
         <svg class="splash-trinity-bg" viewBox="0 0 100 100">
             <polygon points="50,15 85,75 15,75" fill="none" stroke="url(#trinityGrad)" stroke-width="1.5" />
@@ -870,6 +931,7 @@
                 </linearGradient>
             </defs>
         </svg>
+
         <div class="vs-container">
             <span class="vs-karaage">からあげ派</span>
             <span class="vs-text">VS</span>
@@ -882,148 +944,132 @@
         </div>
     </div>
 
-    <!-- メインコンテンツ -->
-    <div id="mainContent">
+    <header>
+        <img class="profile-avatar" src="放送部アイコン.png" alt="大分県立大分上野丘高等学校 放送部 公式アイコン">
+        <h1>大分県立大分上野丘高等学校 放送部</h1>
+        <div class="school-tag">第50回全国高校総合文化祭 出品作品</div>
+        <p>
+            あきた総文2026出品作品です。ぜひご視聴ください！
+            <span class="notice-soft">※本サイトは大会参加者の皆様との作品交換用です。部外へのURL共有や、画面収録などの保存はご遠慮ください。</span>
+        </p>
+    </header>
 
-        <header>
-            <img class="profile-avatar" src="放送部アイコン.png" alt="大分県立大分上野丘高等学校放送部 公式アイコン" onerror="this.src='https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=150&auto=format&fit=crop&q=80'">
-            <h1>大分県立大分上野丘高等学校 放送部</h1>
-            <div class="school-tag">第50回全国高校総合文化祭 出品作品</div>
-            <p>
-                あきた総文 2026 出品作品です。ぜひご視聴ください！<br>
-                <span class="notice-soft">※本サイトは大会参加者の皆様との作品交換用です。部外へのURL共有や、画面収録などの保存はご遠慮ください。</span>
-            </p>
-        </header>
+    <div class="container">
 
-        <div class="container">
-            <div class="section-title scroll-reveal">PROGRAMS</div>
+        <div class="section-title scroll-reveal">PROGRAMS</div>
 
-            <!-- Program Card 1 -->
-            <div class="program-card scroll-reveal">
-                <div class="video-player-container" id="player-1"></div>
-                <div class="program-main-link" style="cursor: default;" title="大会出品中のため非公開">
-                    <div class="program-main">
-                        <div class="thumbnail-wrapper" style="position: relative;">
-                            <img src="https://img.youtube.com/vi/VjICagT4xw8/mqdefault.jpg" alt="ビデオメッセージサムネイル" style="filter: grayscale(40%) opacity(0.8);" onerror="this.src='https://images.unsplash.com/photo-1484755560695-a4c740285fa6?w=300&auto=format&fit=crop&q=60'">
-                            <div style="position: absolute; inset:0; background: rgba(15, 23, 42, 0.4); display: flex; align-items: center; justify-content: center; color: #ffffff; font-size: 1.2rem;">
-                                <i class="fa-solid fa-lock"></i>
-                            </div>
-                        </div>
-                        <div class="btn-text">
-                            <span class="category-row">
-                                <svg class="category-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                                    <rect x="2" y="7" width="20" height="15" rx="2" ry="2"></rect>
-                                    <polyline points="17 2 12 7 7 2"></polyline>
-                                </svg>
-                                <span class="category">ビデオメッセージ部門</span>
-                                <span class="award-tag-mini award-gold">
-                                    <svg class="award-medal-svg" viewBox="0 0 24 24">
-                                        <circle cx="12" cy="8" r="6"/>
-                                        <path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11"/>
-                                    </svg>
-                                    全国大会出品
-                                </span>
-                            </span>
-                            <span class="work-title">『オオイタ・鶏ニティ』</span>
-                        </div>
+        <div class="program-card scroll-reveal">
+            <div class="video-player-container" id="player-1"></div>
+
+            <a href="javascript:void(0)" onclick="triggerPlayFromCard(this, 'VjICagT4xw8')" class="program-main-link" title="作品を視聴する">
+                <div class="program-main">
+                    <div class="thumbnail-wrapper">
+                        <img src="https://img.youtube.com/vi/VjICagT4xw8/mqdefault.jpg" alt="ビデオメッセージ サムネイル" onerror="this.src='https://images.unsplash.com/photo-1484755560695-a4c740285fa6?w=300&auto=format&fit=crop&q=60'">
                     </div>
-                </div>
-                <div class="program-actions">
-                    <button type="button" class="action-btn btn-locked" disabled>
-                        <i class="fa-solid fa-lock" style="margin-right: 4px;"></i> 非公開（大会出品中）
-                    </button>
-                    
-                    <details class="work-details" id="intentAccordion">
-                        <summary><i class="fa-solid fa-lock" style="font-size:0.68rem; margin-right:4px; color:#94a3b8;"></i> 制作意図を見る</summary>
-                        <div class="details-content">
-                            <div class="intent-locked-card">
-                                <i class="fa-solid fa-lock" style="font-size: 1.2rem; margin-bottom: 6px; color: #94a3b8; display: block;"></i>
-                                大会出品期間中のため、制作意図の公開を一時停止しております。<br>大会審査終了後に公開いたします。
-                            </div>
-                        </div>
-                    </details>
-                </div>
-            </div>
-
-            <div class="section-title scroll-reveal">OFFICIAL SNS</div>
-            <a href="https://www.instagram.com/oita_ueno.broadcast?igsh=dWhhaWJxNGsyanVu&utm_source=qr" target="_blank" class="btn-insta-banner scroll-reveal">
-                <div class="insta-icon-container">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                        <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
-                        <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
-                        <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
-                    </svg>
-                </div>
-                <div class="insta-text">
-                    <span class="insta-label">大分上野丘高校放送部 公式 Instagram</span>
-                    <span class="insta-id">@oita_ueno.broadcast</span>
+                    <div class="btn-text">
+                        <span class="category-row">
+                            <svg class="category-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="15" rx="2" ry="2"></rect><polyline points="17 2 12 7 7 2"></polyline></svg>
+                            <span class="category">ビデオメッセージ部門</span>
+                            <span class="award-tag-mini award-gold">
+                                <svg class="award-medal-svg" viewBox="0 0 24 24"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11"/></svg>
+                                全国大会出品
+                            </span>
+                        </span>
+                        <span class="work-title">『オオイタ・鶏ニティ』</span>
+                    </div>
                 </div>
             </a>
-
-            <div class="section-title scroll-reveal">OTHER CONTENTS</div>
-
-            <!-- Program Card 2 -->
-            <div class="program-card scroll-reveal">
-                <div class="video-player-container" id="player-pv"></div>
-                <a href="javascript:void(0)" onclick="triggerPlayFromCard(this, 'rwcsDeVIROE')" class="program-main-link" title="作品を視聴する">
-                    <div class="program-main">
-                        <div class="thumbnail-wrapper">
-                            <img src="https://img.youtube.com/vi/rwcsDeVIROE/mqdefault.jpg" alt="学校紹介PVサムネイル" onerror="this.src='https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=300&auto=format&fit=crop&q=60'">
-                        </div>
-                        <div class="btn-text">
-                            <span class="category-row">
-                                <svg class="category-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                                    <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path>
-                                    <circle cx="12" cy="13" r="4"></circle>
-                                </svg>
-                                <span class="category">学校紹介映像</span>
-                            </span>
-                            <span class="work-title">『大分上野丘高校 学校紹介 PV』</span>
-                        </div>
+            <div class="program-actions">
+                <button type="button" class="action-btn btn-watch" onclick="togglePlay(this, 'VjICagT4xw8')">
+                    <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg> 作品を視聴する
+                </button>
+                
+                <details class="work-details">
+                    <summary>制作意図を見る</summary>
+                    <div class="details-content">
+                        <div class="details-section-title">制作意図</div>
+                        <div class="details-content-text">大分が誇る二大鶏料理、「からあげ」と「とり天」。
+単なる人気争いの対立構造ではなく、大分の食と風土が織りなす共存の姿がそこにはあった。
+身近な食に秘められた魅力を全国へ発信すべく、この番組を制作した。</div>
                     </div>
-                </a>
-                <div class="program-actions">
-                    <button type="button" class="action-btn btn-watch" onclick="togglePlay(this, 'rwcsDeVIROE')" style="flex: 100%;">
-                        <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg> 作品を視聴する
-                    </button>
-                </div>
-            </div>
-
-            <!-- Message Card -->
-            <div class="message-card scroll-reveal">
-                <p>
-                    全国の放送部の皆さん、ご視聴ありがとうございます！<br>
-                    感想や日頃の活動の様子など、ぜひお聞かせください。<br>
-                    これからもお互いに頑張っていきましょう！
-                </p>
+                </details>
             </div>
         </div>
 
-        <!-- Floating Instagram Button -->
-        <a href="https://www.instagram.com/oita_ueno.broadcast?igsh=dWhhaWJxNGsyanVu&utm_source=qr" target="_blank" class="floating-insta" aria-label="Official Instagram">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
-                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
-                <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
-            </svg>
+        <div class="section-title scroll-reveal">OFFICIAL SNS</div>
+
+        <a href="https://www.instagram.com/oita_ueno.broadcast?igsh=dWhhaWJxNGsyanVu&utm_source=qr" target="_blank" class="btn-insta-banner scroll-reveal">
+            <div class="insta-icon-container">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                    <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                    <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+                </svg>
+            </div>
+            <div class="insta-text">
+                <span class="insta-label">大分上野丘高校放送部 公式Instagram</span>
+                <span class="insta-id">@oita_ueno.broadcast</span>
+            </div>
         </a>
 
-        <footer>
-            <p class="copyright-notice">当サイトの作品リンク等の部外への共有、画面収録等の保存、無断転載は固くお断りいたします。</p>
-            <p>&copy; Oita Uenogaoka High School Broadcasting Club.</p>
-        </footer>
+        <div class="section-title scroll-reveal">OTHER CONTENTS</div>
+
+        <div class="program-card scroll-reveal">
+            <div class="video-player-container" id="player-pv"></div>
+
+            <a href="javascript:void(0)" onclick="triggerPlayFromCard(this, 'rwcsDeVlROE')" class="program-main-link" title="作品を視聴する">
+                <div class="program-main">
+                    <div class="thumbnail-wrapper">
+                        <img src="https://img.youtube.com/vi/rwcsDeVlROE/mqdefault.jpg" alt="学校紹介PV サムネイル" onerror="this.src='https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=300&auto=format&fit=crop&q=60'">
+                    </div>
+                    <div class="btn-text">
+                        <span class="category-row">
+                            <svg class="category-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path><circle cx="12" cy="13" r="4"></circle></svg>
+                            <span class="category">学校紹介映像</span>
+                        </span>
+                        <span class="work-title">『大分上野丘高校 学校紹介PV』</span>
+                    </div>
+                </div>
+            </a>
+            <div class="program-actions">
+                <button type="button" class="action-btn btn-watch" onclick="togglePlay(this, 'rwcsDeVlROE')" style="flex: 100%;">
+                    <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg> 作品を視聴する
+                </button>
+            </div>
+        </div>
+
+        <div class="message-card scroll-reveal">
+            <p>
+                全国の放送部の皆さん、ご視聴ありがとうございます！<br>
+                感想や日頃の活動の様子など、ぜひお聞かせください。<br>
+                これからもお互いに頑張っていきましょう！✨
+            </p>
+        </div>
 
     </div>
 
+    <a href="https://www.instagram.com/oita_ueno.broadcast?igsh=dWhhaWJxNGsyanVu&utm_source=qr" target="_blank" class="floating-insta" aria-label="Official Instagram">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+            <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+            <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+        </svg>
+    </a>
+
+    <footer>
+        <p class="copyright-notice">当サイトの作品リンク等の部外への共有、画面収録等の保存、無断転載は固くお断りいたします。</p>
+        <p>&copy; Oita Uenogaoka High School Broadcasting Club.</p>
+    </footer>
+
     <script>
-        // スプラッシュ画面の制御 (9.1秒間表示後に消去)
+        // スプラッシュ画面の制御（メッセージ表示時間の増加に伴い、合計9.1秒[9100ms]に調整）
         window.addEventListener('load', () => {
             const splash = document.getElementById('splash-screen');
             setTimeout(() => {
                 splash.classList.add('loaded');
                 setTimeout(() => {
                     splash.style.display = 'none';
-                    initScrollReveal();
+                    initScrollReveal(); // スプラッシュ終了後にスクロール連動を初期化
                 }, 1200);
             }, 9100);
         });
@@ -1031,6 +1077,7 @@
         // スクロール連動フェードインアニメーション
         function initScrollReveal() {
             const revealElements = document.querySelectorAll('.scroll-reveal');
+            
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach((entry) => {
                     if (entry.isIntersecting) {
@@ -1048,20 +1095,18 @@
             });
         }
 
-        // YouTube プレイヤー動作管理
         function triggerPlayFromCard(linkElement, videoId) {
             const card = linkElement.closest('.program-card');
             const btn = card.querySelector('.btn-watch');
-            if (btn && !btn.disabled) {
+            if (btn) {
                 togglePlay(btn, videoId);
             }
         }
 
         function togglePlay(btn, videoId) {
-            if (btn.disabled) return;
             const card = btn.closest('.program-card');
             const container = card.querySelector('.video-player-container');
-
+            
             document.querySelectorAll('.video-player-container').forEach(c => {
                 if (c !== container && c.style.display === 'block') {
                     closePlayerWithAnimation(c);
@@ -1071,10 +1116,13 @@
             if (container.style.display === 'none' || container.innerHTML === '') {
                 container.style.display = 'block';
                 container.classList.remove('slide-up');
+                
                 const currentOrigin = window.location.origin;
                 container.innerHTML = `<iframe width="100%" height="100%" src="https://www.youtube-nocookie.com/embed/${videoId}?autoplay=1&rel=0&enablejsapi=1&origin=${encodeURIComponent(currentOrigin)}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
+                
                 btn.innerHTML = `<svg viewBox="0 0 24 24"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg> プレイヤーを閉じる`;
                 btn.classList.add('active-playing');
+                
                 setTimeout(() => {
                     container.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
                 }, 150);
@@ -1086,11 +1134,14 @@
         function closePlayerWithAnimation(container) {
             const card = container.closest('.program-card');
             const btn = card.querySelector('.btn-watch');
+
             container.classList.add('slide-up');
-            if (btn && !btn.disabled) {
+
+            if (btn) {
                 btn.innerHTML = `<svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg> 作品を視聴する`;
                 btn.classList.remove('active-playing');
             }
+
             setTimeout(() => {
                 container.style.display = 'none';
                 container.innerHTML = '';
